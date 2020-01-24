@@ -1,0 +1,9 @@
+<div>
+    <template v-for="level in allLevels" :key="level">
+        <label>
+            {{ level }}
+            <input type="checkbox" @click="toggle(level)" :checked="selectedRange.includes(level)">
+        </label>
+    </template>
+    Selected range {{ selectedRange }}
+</div>
