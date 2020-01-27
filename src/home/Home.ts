@@ -1,17 +1,20 @@
 import { Component, Vue } from 'vue-property-decorator';
 import template from './Home.html';
-import {  } from "../common/services/ApiService"
+import { logout, isLoggedIn } from "../common/services/AuthService"
 
 @Component({
     template
 })
 export class Home extends Vue {
 
-    login() {
+    isLoggedIn = false;
 
+    async beforeMount() {
+        this.isLoggedIn = await isLoggedIn();
     }
 
     logout() {
-
+        logout();
+        this.isLoggedIn = false;
     }
 }
