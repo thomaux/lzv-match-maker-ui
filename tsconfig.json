@@ -4,6 +4,6 @@
         "noEmit": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "lib": ["ES2015", "DOM"]
+        "lib": ["ES6", "DOM"]
     }
 }

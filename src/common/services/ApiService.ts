@@ -1,41 +1,28 @@
-import { CreateListingRequest } from "../../create-listing/CreateListingRequest";
-import { ListingsQueryModel } from "../../search-listing/ListingsQueryModel";
-import { Gym } from "../models/GymModel";
-import { Region } from "../models/RegionModel";
+import { inject, injectable } from 'inversify';
+import { CreateListingRequest } from '../../create-listing/CreateListingRequest';
+import { ListingsQueryModel } from '../../search-listing/ListingsQueryModel';
+import { Gym, Region } from '../models';
+import { HttpService } from './HttpService';
 
-const apiRoot = "https://localhost:8443";
+@injectable()
+export class ApiService {
 
-export function findListings(query: ListingsQueryModel) {
-    return callAPI('listing' + query.toQueryString());
-}
+    private apiRoot = 'https://localhost:8443/api';
 
-export function getRegions(): Promise<Region[]> {
-    return callAPI('region');
-}
+    constructor(@inject(HttpService) private httpService: HttpService) {}
 
-export function createListing(createListingRequest: CreateListingRequest): Promise<number> {
-    return callAPI('listing', {
-        method: 'POST',
-        body: JSON.stringify(createListingRequest),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-}
-
-export function getGymsForRegion(regionId: number): Promise<Gym[]> {
-    return callAPI(`region/${regionId}/gyms`)
-}
-
-async function callAPI(path: string, options?: RequestInit): Promise<any> {
-    options = options || {};
-    options.credentials = "include";
-
-    const response = await fetch(`${apiRoot}/api/${path}`, options);
-
-    if (!response.ok) {
-        throw new Error(response.statusText);
+    findListings(query: ListingsQueryModel) {
+        return this.httpService.get(`${this.apiRoot}/listing${query.toQueryString()}`);
+    }
+    
+    getRegions(): Promise<Region[]> {
+        return this.httpService.get(this.apiRoot + '/region');
+    }
+    createListing(createListingRequest: CreateListingRequest): Promise<number> {
+        return this.httpService.post('listing', createListingRequest);
     }
 
-    return response.json();
+    getGymsForRegion(regionId: number): Promise<Gym[]> {
+        return this.httpService.get(`${this.apiRoot}/region/${regionId}/gyms`)
+    }
 }

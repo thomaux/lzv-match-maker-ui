@@ -1,8 +1,9 @@
 import { Component, Vue } from 'vue-property-decorator';
-import { findListings } from '../common/services/ApiService';
+import { ApiService } from '../common/services/ApiService';
 import template from './SearchListings.html';
 import { ListingsQuery } from './ListingsQuery';
 import { ListingsQueryModel } from './ListingsQueryModel';
+import { lazyInject } from '../container';
 
 @Component({
     template,
@@ -15,6 +16,9 @@ export class SearchListings extends Vue {
     listings: any[] = [];
     queryString = {};
 
+    @lazyInject(ApiService)
+    apiService: ApiService;
+
     beforeMount() {
         this.queryString = this.$router.currentRoute.query;
     }
@@ -25,6 +29,6 @@ export class SearchListings extends Vue {
             query: query.toQueryObject() as any
         });
 
-        this.listings = await findListings(query);
+        this.listings = await this.apiService.findListings(query);
     }
 }

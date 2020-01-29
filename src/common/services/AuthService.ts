@@ -1,19 +1,19 @@
-const apiRoot = "https://localhost:8443";
+import { inject, injectable } from 'inversify';
+import { HttpService } from './HttpService';
 
-export async function isLoggedIn(): Promise<boolean> {
-    const response = await fetch(apiRoot + "/auth/check", { credentials: "include" });
+@injectable()
+export class AuthService {
 
-    if (!response.ok) {
-        throw new Error(response.statusText);
+    private apiRoot = 'https://localhost:8443/auth';
+
+    constructor(@inject(HttpService) private httpService: HttpService) { }
+
+    async isLoggedIn(): Promise<boolean> {
+        const response = await this.httpService.get(this.apiRoot + '/check');
+        return response.session;
     }
 
-    return (await response.json()).session;
-}
-
-export async function logout(): Promise<void> {
-    const response = await fetch(apiRoot + "/auth", { method: "DELETE", credentials: "include" });
-
-    if (!response.ok) {
-        throw new Error(response.statusText);
+    logout(): Promise<void> {
+        return this.httpService.delete(this.apiRoot);
     }
 }

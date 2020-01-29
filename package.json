@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch:ts": "tsc -w",
+    "watch": "tsc -w",
     "serve": "parcel serve ./src/index.html"
   },
   "repository": {
@@ -19,6 +19,9 @@
   "homepage": "https://github.com/thomaux/lzv-match-maker-ui#readme",
   "private": true,
   "dependencies": {
+    "inversify": "^5.0.1",
+    "inversify-inject-decorators": "^3.1.0",
+    "reflect-metadata": "^0.1.13",
     "vue": "^2.6.11",
     "vue-property-decorator": "^8.3.0",
     "vue-router": "^3.1.5"
