@@ -1,4 +1,4 @@
 <select v-model="regionId" @input="update($event.target.value)">
-    <option value="" disabled>Kies een regio ...</option> <!-- TODO: if no selection is made, select this one -->
+    <option :value="-1" disabled>Kies een regio ...</option>
     <option v-for="region in regions" :value="region._id">{{ region.name }}</option>
 </select>

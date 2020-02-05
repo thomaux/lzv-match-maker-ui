@@ -12,9 +12,9 @@ export class RegionSelect extends Vue {
     @Prop()
     value: Region;
 
-    regionId = 0;
+    regionId = -1;
 
-    regions = [];
+    regions: Region[] = [];
 
     @lazyInject(ApiService)
     apiService: ApiService;
@@ -24,11 +24,13 @@ export class RegionSelect extends Vue {
     }
 
     mounted() {
-        this.regionId = this.value ?  this.value._id : 0;
+        if(this.value) {
+            this.regionId = this.value._id;
+        }
     }
 
-    update(regionId: any) {
-        regionId = parseInt(regionId); // TODO: check if this is still required?
+    update(value: string) {
+        const regionId = parseInt(value, 10);
         this.$emit('input', this.regions.find(r => r._id === regionId));
     }
 }
