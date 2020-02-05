@@ -1,5 +1,5 @@
 <div>
-    <listings-query :initial="queryString" @update="filterListings"></listings-query>
+    <listings-query v-if="isQueryModelInitialized" :model="queryModel" @update="filterListings"></listings-query>
     <ul>
         <li v-for="listing in listings">
             {{ listing }}

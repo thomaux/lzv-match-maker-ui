@@ -1,7 +1,8 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { lazyInject } from '../../../container';
+import { Region } from '../../models';
 import { ApiService } from '../../services/ApiService';
 import template from './RegionSelect.html';
-import { lazyInject } from '../../../container';
 
 @Component({
     template
@@ -9,7 +10,7 @@ import { lazyInject } from '../../../container';
 export class RegionSelect extends Vue {
 
     @Prop()
-    value: string;
+    value: Region;
 
     regionId = 0;
 
@@ -20,14 +21,14 @@ export class RegionSelect extends Vue {
 
     async beforeMount() {
         this.regions = await this.apiService.getRegions();
-        // The initial value will be just the id, so set it to the internal "regionId" representation
-        this.regionId = parseInt(this.value);
-        // Then replace the value with an actual region by triggering the "input" event
-        this.update(this.value);
+    }
+
+    mounted() {
+        this.regionId = this.value ?  this.value._id : 0;
     }
 
     update(regionId: any) {
-        regionId = parseInt(regionId);
+        regionId = parseInt(regionId); // TODO: check if this is still required?
         this.$emit('input', this.regions.find(r => r._id === regionId));
     }
 }

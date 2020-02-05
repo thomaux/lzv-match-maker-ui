@@ -1,21 +1,24 @@
 import { Region } from "../common/models/RegionModel";
 
-export interface ListingsQueryParameters {
-    regionId?: number;
-    level?: number;
+export interface ListingsQueryObject<T> {
+    regionId?: T;
+    level?: T;
 }
 
 export class ListingsQueryModel {
 
-    region: Region | number;
-    level: number;
+    region: Region = null;
+    private _level: number = null;
 
-    constructor(initial: ListingsQueryParameters) {
-        if (!initial) {
-            return;
+    get level() {
+        return this._level;
+    }
+
+    set level(level: number) {
+        if(this.region && this.region.lowestPossibleLevel < level) {
+            throw new Error("Cannot set level lower than region minimum");
         }
-        this.level = initial.level;
-        this.region = initial.regionId;
+        this._level = level;
     }
 
     toQueryString(): string {
@@ -25,12 +28,11 @@ export class ListingsQueryModel {
         return keysWithValue.length ? '?' + keysWithValue.map(key => key + '=' + queryObject[key]).join('&') : "";
     }
 
-    toQueryObject(): ListingsQueryParameters {
-        const queryObject: ListingsQueryParameters = {};
+    toQueryObject(): ListingsQueryObject<number> {
+        const queryObject: ListingsQueryObject<number> = {};
 
         if (this.region) {
-            // TODO: how could we avoid calling the update method before the region has been resolved to a Region?
-            queryObject.regionId = (this.region as Region)._id || this.region as number ;
+            queryObject.regionId = this.region._id ;
         }
         if (this.level) {
             queryObject.level = this.level;

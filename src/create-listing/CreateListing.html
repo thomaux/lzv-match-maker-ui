@@ -1,8 +1,8 @@
 <form @submit="create">
-    Wij, de <input v-model="model.teamName"> uit <region-select v-model="region"></region-select>,
+    Wij, de <input v-model="model.teamName"> uit <region-select v-model="region" :regions="regions"></region-select>,
     zoeken een tegenstander voor een vriendschappelijke wedstrijd op _date_ in zaal 
     <select v-model="model.gymId">
         <option v-for="gym in gyms" :value="gym._id">{{ gym.name }}</option>
-    </select> . Liefst niveau <level-range v-model="model.levelRange" max-allowed-level="4"></level-range>.
+    </select>. Liefst niveau <level-range v-model="model.levelRange" :max-allowed-level="4"></level-range>.
     <button type="submit">Plaats</button>
 </form>

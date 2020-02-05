@@ -15,6 +15,8 @@ export class LevelRange extends Vue {
 
     allLevels = [1,2,3,4,5];
 
+    selectedRange = [];
+
     toggle(level) {
     
     }

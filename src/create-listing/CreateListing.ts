@@ -3,9 +3,9 @@ import * as components from '../common/components';
 import { Gym } from '../common/models/GymModel';
 import { Region } from '../common/models/RegionModel';
 import { ApiService } from '../common/services/ApiService';
+import { lazyInject } from '../container';
 import template from './CreateListing.html';
 import { ListingModel } from './ListingModel';
-import { lazyInject } from '../container';
 
 @Component({
     template,
@@ -20,7 +20,6 @@ export class CreateListing extends Vue {
 
     @lazyInject(ApiService)
     apiService: ApiService;
-
 
     beforeMount() {
         this.model.date = '2020-12-31T22:00:00.000Z';
