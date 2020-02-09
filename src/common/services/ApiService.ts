@@ -19,7 +19,7 @@ export class ApiService {
         return this.httpService.get(this.apiRoot + '/region');
     }
     createListing(createListingRequest: CreateListingRequest): Promise<number> {
-        return this.httpService.post('listing', createListingRequest);
+        return this.httpService.post(this.apiRoot + '/listing', createListingRequest);
     }
 
     getGymsForRegion(regionId: number): Promise<Gym[]> {
