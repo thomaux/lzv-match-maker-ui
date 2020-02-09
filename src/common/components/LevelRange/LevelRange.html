@@ -1,7 +1,4 @@
 <div>
-    <label v-for="level in allLevels" :key="level">
-        {{ level }}
-        <input type="checkbox" @click="toggle(level)" :checked="selectedRange.includes(level)">
-    </label>
-    Selected range {{ selectedRange }}
+   <input type="number" step="1" :min="high || 1" :disabled="!lowest" :max="lowest" v-model="low"> tot
+   <input type="number" step="1" min="1" :disabled="!lowest" :max="lowest" v-model="high">
 </div>

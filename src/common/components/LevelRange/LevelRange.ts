@@ -1,6 +1,6 @@
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { LevelRangeModel } from "../../models";
-import template from "./LevelRange.html";
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { LevelRangeModel } from '../../models';
+import template from './LevelRange.html';
 
 @Component({
     template
@@ -8,16 +8,28 @@ import template from "./LevelRange.html";
 export class LevelRange extends Vue {
 
     @Prop()
-    maxAllowedLevel: number;
+    lowest: number;
 
     @Prop()
     value: LevelRangeModel;
 
-    allLevels = [1,2,3,4,5];
+    low = null;
+    high = null;
 
-    selectedRange = [];
+    @Watch('high')
+    onHighChanged() {
+        if(this.low < this.high) {
+            this.low = this.high
+        }
+        this.onLowChanged();
+    }
 
-    toggle(level) {
-    
+    @Watch('low')
+    onLowChanged() {
+        const updatedValue: LevelRangeModel = {
+            min: parseInt(this.low, 10),
+            max: parseInt(this.high, 10)
+        };
+        this.$emit('input', updatedValue);
     }
 }

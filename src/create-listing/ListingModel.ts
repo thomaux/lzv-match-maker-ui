@@ -7,6 +7,16 @@ export class ListingModel {
     date: string;
     levelRange: LevelRangeModel;
 
+    constructor() {
+        this.teamName = "";
+        this.gymId = undefined;
+        this.date = undefined;
+        this.levelRange = {
+            max: undefined,
+            min: undefined
+        };
+    }
+
     toCreateListingRequest(): CreateListingRequest {
         return {
             teamName: this.teamName,
