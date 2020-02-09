@@ -6,6 +6,7 @@ import { ApiService } from '../common/services/ApiService';
 import { lazyInject } from '../container';
 import template from './CreateListing.html';
 import { ListingModel } from './ListingModel';
+import { CreateListingRequest } from './CreateListingRequest';
 
 @Component({
     template,
@@ -21,16 +22,13 @@ export class CreateListing extends Vue {
     @lazyInject(ApiService)
     apiService: ApiService;
 
-    beforeMount() {
-        this.model.date = '2020-12-31T22:00:00.000Z';
-    }
-
     create() {
-        this.apiService.createListing(this.model.toCreateListingRequest());
+        this.apiService.createListing(new CreateListingRequest(this.model.teamName, this.model.gymId, this.model.date, this.model.levelRange));
     }
 
     @Watch('region')
     async onRegionChanged(region: Region){
         this.gyms = region ? await this.apiService.getGymsForRegion(region._id) : [];
+        this.model.clearGymAndLevelRange();
     }
 }
