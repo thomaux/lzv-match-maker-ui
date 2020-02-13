@@ -1,4 +1,4 @@
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { lazyInject } from '../../../container';
 import { Region } from '../../models';
 import { ApiService } from '../../services/ApiService';
@@ -12,7 +12,7 @@ export class RegionSelect extends Vue {
     @Prop()
     value: Region;
 
-    regionId = -1;
+    selectedRegion = null;
 
     regions: Region[] = [];
 
@@ -24,13 +24,15 @@ export class RegionSelect extends Vue {
     }
 
     mounted() {
-        if(this.value) {
-            this.regionId = this.value._id;
+        if (this.value) {
+            this.selectedRegion = this.value;
         }
     }
 
-    update(value: string) {
-        const regionId = parseInt(value, 10);
-        this.$emit('input', this.regions.find(r => r._id === regionId));
+    @Watch('value')
+    foo() {
+        if(!this.value) {
+            this.selectedRegion = null;
+        }
     }
 }

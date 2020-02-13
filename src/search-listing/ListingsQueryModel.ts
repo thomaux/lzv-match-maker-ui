@@ -21,6 +21,11 @@ export class ListingsQueryModel {
         this._level = level;
     }
 
+    clear() {
+        this.region = null;
+        this.level = null;
+    }
+
     toQueryString(): string {
         const queryObject = this.toQueryObject();
         const keysWithValue = Object.keys(queryObject);
