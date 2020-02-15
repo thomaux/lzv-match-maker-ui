@@ -19,7 +19,7 @@ export class HttpService {
 
     delete(url: string): Promise<any> {
         return this.fetch(url, {
-            method: "DELETE"
+            method: 'DELETE'
         });
     }
 

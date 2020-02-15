@@ -1,7 +1,7 @@
 import { Component, Vue } from 'vue-property-decorator';
-import template from './Home.html';
-import { AuthService } from "../common/services/AuthService"
+import { AuthService } from '../common/services/AuthService';
 import { lazyInject } from '../container';
+import template from './Home.html';
 
 @Component({
     template
@@ -13,11 +13,11 @@ export class Home extends Vue {
     @lazyInject(AuthService)
     authService: AuthService;
 
-    async beforeMount() {
+    async beforeMount(): Promise<void> {
         this.isLoggedIn = await this.authService.isLoggedIn();
     }
 
-    logout() {
+    logout(): void {
         this.authService.logout();
         this.isLoggedIn = false;
     }

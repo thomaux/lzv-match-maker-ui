@@ -1,4 +1,4 @@
-import { Region } from "../common/models/RegionModel";
+import { Region } from '../common/models/RegionModel';
 
 export interface ListingsQueryObject<T> {
     regionId?: T;
@@ -10,18 +10,18 @@ export class ListingsQueryModel {
     region: Region = null;
     private _level: number = null;
 
-    get level() {
+    get level(): number {
         return this._level;
     }
 
     set level(level: number) {
         if(this.region && this.region.lowestPossibleLevel < level) {
-            throw new Error("Cannot set level lower than region minimum");
+            throw new Error('Cannot set level lower than region minimum');
         }
         this._level = level;
     }
 
-    clear() {
+    clear(): void {
         this.region = null;
         this.level = null;
     }
@@ -30,7 +30,7 @@ export class ListingsQueryModel {
         const queryObject = this.toQueryObject();
         const keysWithValue = Object.keys(queryObject);
 
-        return keysWithValue.length ? '?' + keysWithValue.map(key => key + '=' + queryObject[key]).join('&') : "";
+        return keysWithValue.length ? '?' + keysWithValue.map(key => key + '=' + queryObject[key]).join('&') : '';
     }
 
     toQueryObject(): ListingsQueryObject<number> {

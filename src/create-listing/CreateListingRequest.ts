@@ -1,4 +1,4 @@
-import { LevelRangeModel } from "../common/models";
+import { LevelRangeModel } from '../common/models';
 
 export class CreateListingRequest {
     date: string;

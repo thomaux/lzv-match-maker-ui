@@ -1,4 +1,5 @@
 import { Component, Vue } from 'vue-property-decorator';
+import { Dictionary } from 'vue-router/types/router';
 import { ApiService } from '../common/services/ApiService';
 import { lazyInject } from '../container';
 import { ListingsQuery } from './ListingsQuery';
@@ -13,7 +14,7 @@ import template from './SearchListings.html';
 })
 export class SearchListings extends Vue {
 
-    listings: any[] = [];
+    listings: object[] = [];
 
     queryModel = new ListingsQueryModel();
     isQueryModelInitialized = false; // TODO: is it OK to keep this flag on the main component or should we move it down to the region-select?
@@ -21,7 +22,7 @@ export class SearchListings extends Vue {
     @lazyInject(ApiService)
     apiService: ApiService;
 
-    async beforeMount() {
+    async beforeMount(): Promise<void> {
         const queryParams: ListingsQueryObject<string> = this.$router.currentRoute.query;
 
         if(queryParams.regionId) {
@@ -38,10 +39,10 @@ export class SearchListings extends Vue {
         this.filterListings();
     }
 
-    async filterListings() {
+    async filterListings(): Promise<void> {
         this.$router.replace({
             path: '/search',
-            query: this.queryModel.toQueryObject() as any
+            query: this.queryModel.toQueryObject() as Dictionary<string>
         });
 
         this.listings = await this.apiService.findListings(this.queryModel);

@@ -1,4 +1,4 @@
-import { LevelRangeModel } from "../common/models";
+import { LevelRangeModel } from '../common/models';
 
 export class ListingModel {
     teamName: string;
@@ -7,12 +7,12 @@ export class ListingModel {
     levelRange: LevelRangeModel;
 
     constructor() {
-        this.teamName = "";
+        this.teamName = '';
         this.date = undefined;
         this.clearGymAndLevelRange();
     }
 
-    clearGymAndLevelRange() {
+    clearGymAndLevelRange(): void {
         this.gymId = undefined;
         this.levelRange = new LevelRangeModel();
     }
