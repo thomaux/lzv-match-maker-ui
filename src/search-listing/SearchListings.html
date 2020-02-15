@@ -1,6 +1,7 @@
 <div>
     <listings-query v-if="isQueryModelInitialized" :model="queryModel" @update="filterListings"></listings-query>
     <ul>
+        <li v-show="!listings.length">Er zijn geen resultaten die aan je zoekopdracht voldoen</li>
         <li v-for="listing in listings">
             {{ listing }}
         </li>
