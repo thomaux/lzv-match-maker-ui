@@ -18,7 +18,7 @@ export class LevelRange extends Vue {
 
     @Watch('high')
     onHighChanged() {
-        if(this.low < this.high) {
+        if (this.low < this.high) {
             this.low = this.high
         }
         this.onLowChanged();
@@ -26,10 +26,6 @@ export class LevelRange extends Vue {
 
     @Watch('low')
     onLowChanged() {
-        const updatedValue: LevelRangeModel = {
-            min: parseInt(this.low, 10),
-            max: parseInt(this.high, 10)
-        };
-        this.$emit('input', updatedValue);
+        this.$emit('input', new LevelRangeModel(parseInt(this.low, 10), parseInt(this.high, 10)));
     }
 }
