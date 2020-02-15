@@ -1,6 +1,6 @@
 <form @submit="create">
     Wij, de <input v-model="model.teamName"> uit <region-select v-model="region"></region-select>,
-    zoeken een tegenstander voor een vriendschappelijke wedstrijd op _date_ in zaal 
+    zoeken een tegenstander voor een vriendschappelijke wedstrijd op <date-time-picker v-model="model.date"></date-time-picker> in zaal 
     <select v-model="model.gymId">
         <option v-for="gym in gyms" :value="gym._id">{{ gym.name }}</option>
     </select>. Liefst niveau <level-range v-model="model.levelRange" :lowest="region.lowestPossibleLevel"></level-range>.

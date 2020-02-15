@@ -1,0 +1,10 @@
+<div>
+    op 
+    <input v-model="day" type="number" min="1">
+    <input v-model="month" type="number" min="1">
+    <input v-model="year" type="number">
+    om
+    <select v-model="hour">
+        <option v-for="h in hours" :value="h">{{ h }}</option>
+    </select>
+</div>
