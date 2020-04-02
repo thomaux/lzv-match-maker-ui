@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "lint": "eslint --ext .ts src/**/*.ts",
+        "lint": "eslint 'src/**/*.ts'",
         "watch": "tsc -w",
         "serve": "parcel serve ./src/index.html",
         "debug": "run-p watch serve"

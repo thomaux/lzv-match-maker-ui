@@ -10,8 +10,12 @@
     ],
     "rules": {
         "quotes": [
-            2,
+            "error",
             "single"
+        ],
+        "semi": [
+            "error",
+            "always"
         ]
     }
 }
