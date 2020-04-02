@@ -1,10 +1,7 @@
 import 'reflect-metadata';
 import Vue from 'vue';
-import VueRouter from 'vue-router';
 import { App } from './app/App';
-import { routes } from './routes';
-
-Vue.use(VueRouter);
+import { router } from './router/Router';
 
 new Vue({
     el: '#app',
@@ -12,7 +9,5 @@ new Vue({
     components: {
         App
     },
-    router: new VueRouter({
-        routes
-    })
+    router
 });

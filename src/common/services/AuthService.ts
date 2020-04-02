@@ -1,26 +1,35 @@
 import { inject, injectable } from 'inversify';
-import { HttpService } from './HttpService';
-import { CONSTANTS } from '../../constants';
+import { Team } from '../models';
+import { ApiService } from './ApiService';
 
 @injectable()
 export class AuthService {
 
-    private _isLoggedIn = null;
+    private _isLoggedIn: boolean = null;
+    private _teams: Team[] = null;
 
     constructor(
-        @inject(CONSTANTS.AuthRoot) private authRoot: string,
-        @inject(HttpService) private httpService: HttpService) {}
+        @inject(ApiService) private apiService: ApiService) { }
 
     async isLoggedIn(): Promise<boolean> {
-        if(this._isLoggedIn === null) {
-            const response = await this.httpService.get<{ session: boolean }>(this.authRoot + '/check');
-            this._isLoggedIn = response.session;
+        if (this._isLoggedIn === null) {
+            try {
+                this._teams = await this.apiService.listTeams();
+                this._isLoggedIn = true;
+            } catch (e) {
+                console.error('status should be 403?', e);
+                this._isLoggedIn = false;
+            }
         }
         return this._isLoggedIn;
     }
 
+    getTeamOfLoggedInUser(): Team {
+        return this._teams.length ? this._teams[0] : undefined;
+    }
+
     logout(): Promise<void> {
         this._isLoggedIn = false;
-        return this.httpService.delete(this.authRoot);
+        return this.apiService.logout();
     }
 }

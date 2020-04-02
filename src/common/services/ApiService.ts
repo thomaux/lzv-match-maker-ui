@@ -2,20 +2,23 @@ import { inject, injectable } from 'inversify';
 import { CONSTANTS } from '../../constants';
 import { CreateListingRequest } from '../../create-listing/CreateListingRequest';
 import { ListingsQueryModel } from '../../search-listing/ListingsQueryModel';
-import { Gym, Region } from '../models';
+import { CreatedResponse, Gym, Listing, Region, Team } from '../models';
 import { HttpService } from './HttpService';
-import { CreatedResponse } from '../models/CreatedResponse';
-import { Listing } from '../models/ListingModel';
 
 @injectable()
 export class ApiService {
 
     constructor(
         @inject(CONSTANTS.ApiRoot) private apiRoot: string,
+        @inject(CONSTANTS.AuthRoot) private authRoot: string,
         @inject(HttpService) private httpService: HttpService) { }
 
     findListings(query: ListingsQueryModel): Promise<Listing[]> {
         return this.httpService.get(`${this.apiRoot}/listing${query.toQueryString()}`);
+    }
+
+    listTeams(): Promise<Team[]> {
+        return this.httpService.get(this.apiRoot + '/team');
     }
 
     getRegions(): Promise<Region[]> {
@@ -27,5 +30,9 @@ export class ApiService {
 
     getGymsForRegion(regionId: string): Promise<Gym[]> {
         return this.httpService.get(`${this.apiRoot}/region/${regionId}/gyms`);
+    }
+
+    logout(): Promise<void> {
+        return this.httpService.delete(this.authRoot);
     }
 }
