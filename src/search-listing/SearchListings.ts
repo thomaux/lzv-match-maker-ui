@@ -27,7 +27,7 @@ export class SearchListings extends Vue {
 
         if(queryParams.regionId) {
             const regions = await this.apiService.getRegions();
-            this.queryModel.region = regions.find(r => r._id === parseInt(queryParams.regionId, 10));
+            this.queryModel.region = regions.find(r => r.id === queryParams.regionId);
         }
 
         if(queryParams.level) {

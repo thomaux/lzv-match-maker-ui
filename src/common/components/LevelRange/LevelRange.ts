@@ -1,6 +1,6 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { LevelRangeModel } from '../../models';
 import template from './LevelRange.html';
+import { LevelRangeModel } from './LevelRangeModel';
 
 @Component({
     template
@@ -17,15 +17,15 @@ export class LevelRange extends Vue {
     high = null;
 
     @Watch('high')
-    onHighChanged() {
+    onHighChanged(): void {
         if (this.low < this.high) {
-            this.low = this.high
+            this.low = this.high;
         }
         this.onLowChanged();
     }
 
     @Watch('low')
-    onLowChanged() {
+    onLowChanged(): void {
         this.$emit('input', new LevelRangeModel(parseInt(this.low, 10), parseInt(this.high, 10)));
     }
 }

@@ -5,8 +5,8 @@ import { Region } from '../common/models/RegionModel';
 import { ApiService } from '../common/services/ApiService';
 import { lazyInject } from '../container';
 import template from './CreateListing.html';
+import { CreateListingModel } from './CreateListingModel';
 import { CreateListingRequest } from './CreateListingRequest';
-import { ListingModel } from './ListingModel';
 
 @Component({
     template,
@@ -14,7 +14,7 @@ import { ListingModel } from './ListingModel';
 })
 export class CreateListing extends Vue {
 
-    model: ListingModel = new ListingModel();
+    model: CreateListingModel = new CreateListingModel();
 
     region: Region = {} as Region;
     gyms: Gym[] = [];
@@ -28,7 +28,7 @@ export class CreateListing extends Vue {
 
     @Watch('region')
     async onRegionChanged(region: Region): Promise<void> {
-        this.gyms = region ? await this.apiService.getGymsForRegion(region._id) : [];
+        this.gyms = region ? await this.apiService.getGymsForRegion(region.id) : [];
         this.model.clearGymAndLevelRange();
     }
 }

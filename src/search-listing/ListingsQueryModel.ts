@@ -33,11 +33,11 @@ export class ListingsQueryModel {
         return keysWithValue.length ? '?' + keysWithValue.map(key => key + '=' + queryObject[key]).join('&') : '';
     }
 
-    toQueryObject(): ListingsQueryObject<number> {
-        const queryObject: ListingsQueryObject<number> = {};
+    toQueryObject(): ListingsQueryObject<unknown> {
+        const queryObject: ListingsQueryObject<unknown> = {};
 
         if (this.region) {
-            queryObject.regionId = this.region._id ;
+            queryObject.regionId = this.region.id ;
         }
         if (this.level) {
             queryObject.level = this.level;

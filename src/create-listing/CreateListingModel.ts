@@ -1,6 +1,6 @@
-import { LevelRangeModel } from '../common/models';
+import { LevelRangeModel } from '../common/components/LevelRange/LevelRangeModel';
 
-export class ListingModel {
+export class CreateListingModel {
     teamName: string;
     gymId: number;
     date: Date;

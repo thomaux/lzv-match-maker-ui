@@ -23,7 +23,7 @@ export class DateTimePicker extends Vue {
     }
 
     @Watch('date')
-    onDateChanged() {
+    onDateChanged(): void {
         this.$emit('input', this.date);
     }
 }

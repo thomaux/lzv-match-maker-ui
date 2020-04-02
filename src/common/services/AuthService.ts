@@ -13,7 +13,7 @@ export class AuthService {
 
     async isLoggedIn(): Promise<boolean> {
         if(this._isLoggedIn === null) {
-            const response = await this.httpService.get(this.authRoot + '/check');
+            const response = await this.httpService.get<{ session: boolean }>(this.authRoot + '/check');
             this._isLoggedIn = response.session;
         }
         return this._isLoggedIn;

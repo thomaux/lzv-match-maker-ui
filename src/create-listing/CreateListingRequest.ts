@@ -1,4 +1,4 @@
-import { LevelRangeModel } from '../common/models';
+import { LevelRangeModel } from '../common/components/LevelRange/LevelRangeModel';
 
 export class CreateListingRequest {
     date: string;
@@ -9,6 +9,6 @@ export class CreateListingRequest {
         this.date = date.toISOString();
 
         this.minLevel = levelRange.min;
-        this.maxLevel = levelRange.max
+        this.maxLevel = levelRange.max;
     }
 }

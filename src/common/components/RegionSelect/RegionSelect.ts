@@ -19,18 +19,18 @@ export class RegionSelect extends Vue {
     @lazyInject(ApiService)
     apiService: ApiService;
 
-    async beforeMount() {
+    async beforeMount(): Promise<void> {
         this.regions = await this.apiService.getRegions();
     }
 
-    mounted() {
+    mounted(): void {
         if (this.value) {
             this.selectedRegion = this.value;
         }
     }
 
     @Watch('value')
-    foo() {
+    foo(): void {
         if(!this.value) {
             this.selectedRegion = null;
         }
