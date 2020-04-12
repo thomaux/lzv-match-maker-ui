@@ -21,6 +21,10 @@ export class ListingsQueryModel {
         this._level = level;
     }
 
+    get lowestPossibleLevel(): number {
+        return this.region ? this.region.lowestPossibleLevel : 5;
+    }
+
     clear(): void {
         this.region = null;
         this.level = null;
@@ -33,8 +37,8 @@ export class ListingsQueryModel {
         return keysWithValue.length ? '?' + keysWithValue.map(key => key + '=' + queryObject[key]).join('&') : '';
     }
 
-    toQueryObject(): ListingsQueryObject<unknown> {
-        const queryObject: ListingsQueryObject<unknown> = {};
+    toQueryObject(): ListingsQueryObject<number> {
+        const queryObject: ListingsQueryObject<number> = {};
 
         if (this.region) {
             queryObject.regionId = this.region.id ;

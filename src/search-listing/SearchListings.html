@@ -1,5 +1,11 @@
 <div>
-    <listings-query v-if="isQueryModelInitialized" :model="queryModel" @update="filterListings"></listings-query>
+    <form @reset="queryModel.clear()">
+        <label>Region</label>
+        <region-select v-model="queryModel.region" :regions="regions"></region-select>
+        <label>Level</label>
+        <input v-model="queryModel.level" type="number" min="1" :max="queryModel.lowestPossibleLevel">
+        <button type="reset">Clear</button>
+    </form>
     <ul>
         <li v-show="!listings.length">Er zijn geen resultaten die aan je zoekopdracht voldoen</li>
         <li v-for="listing in listings">

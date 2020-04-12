@@ -1,7 +1,0 @@
-<form @reset="model.clear()">
-    <label>Region</label>
-    <region-select v-model="model.region"></region-select>
-    <label>Level</label>
-    <input v-model="model.level" type="number" min="1" :max="model.region ? model.region.lowestPossibleLevel : 5">
-    <button type="reset">Clear</button>
-</form>

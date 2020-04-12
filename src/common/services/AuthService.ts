@@ -24,7 +24,8 @@ export class AuthService {
         return this._isLoggedIn;
     }
 
-    getTeamOfLoggedInUser(): Team {
+    async getTeamOfLoggedInUser(): Promise<Team> {
+        await this.isLoggedIn();
         return this._teams.length ? this._teams[0] : undefined;
     }
 

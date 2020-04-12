@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { CONSTANTS } from '../../constants';
-import { CreateListingRequest } from '../../create-listing/CreateListingRequest';
+import { CreateListingRequest } from '../../create-listing/CreateListingModel';
 import { ListingsQueryModel } from '../../search-listing/ListingsQueryModel';
 import { CreatedResponse, Gym, Listing, Region, Team } from '../models';
 import { HttpService } from './HttpService';
@@ -28,7 +28,7 @@ export class ApiService {
         return this.httpService.post(this.apiRoot + '/listing', createListingRequest);
     }
 
-    getGymsForRegion(regionId: string): Promise<Gym[]> {
+    getGymsForRegion(regionId: number): Promise<Gym[]> {
         return this.httpService.get(`${this.apiRoot}/region/${regionId}/gyms`);
     }
 

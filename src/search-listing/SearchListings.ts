@@ -1,20 +1,23 @@
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Dictionary } from 'vue-router/types/router';
+import { RegionSelect } from '../common/components';
+import { Listing, Region } from '../common/models';
 import { ApiService } from '../common/services/ApiService';
 import { lazyInject } from '../container';
-import { ListingsQuery } from './ListingsQuery';
 import { ListingsQueryModel, ListingsQueryObject } from './ListingsQueryModel';
 import template from './SearchListings.html';
 
 @Component({
     template,
     components: {
-        ListingsQuery
+        RegionSelect
     }
 })
 export class SearchListings extends Vue {
 
-    listings: object[] = [];
+    listings: Listing[] = [];
+
+    regions: Region[] = [];
 
     queryModel = new ListingsQueryModel();
     isQueryModelInitialized = false; // TODO: is it OK to keep this flag on the main component or should we move it down to the region-select?
@@ -24,10 +27,11 @@ export class SearchListings extends Vue {
 
     async beforeMount(): Promise<void> {
         const queryParams: ListingsQueryObject<string> = this.$router.currentRoute.query;
+        this.regions = await this.apiService.getRegions();
 
         if(queryParams.regionId) {
-            const regions = await this.apiService.getRegions();
-            this.queryModel.region = regions.find(r => r.id === queryParams.regionId);
+            const regionId = parseInt(queryParams.regionId, 10);
+            this.queryModel.region = this.regions.find(r => r.id === regionId);
         }
 
         if(queryParams.level) {
@@ -46,5 +50,11 @@ export class SearchListings extends Vue {
         });
 
         this.listings = await this.apiService.findListings(this.queryModel);
+    }
+
+    @Watch('queryModel.region')
+    @Watch('queryModel.level')
+    onQueryModelChanged(): void {
+        this.filterListings();
     }
 }
