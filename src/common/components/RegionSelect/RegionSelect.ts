@@ -22,7 +22,7 @@ export class RegionSelect extends Vue {
     }
 
     @Watch('value')
-    foo(): void {
+    onValueChanged(): void {
         if(!this.value) {
             this.selectedRegion = null;
         }
