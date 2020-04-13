@@ -1,6 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { CONSTANTS } from '../../constants';
 import { CreateListingRequest } from '../../create-listing/CreateListingModel';
+import { UpsertTeamRequest } from '../../manage-team/models/UpsertTeamModel';
 import { ListingsQueryModel } from '../../search-listing/ListingsQueryModel';
 import { CreatedResponse, Gym, Listing, Region, Team } from '../models';
 import { HttpService } from './HttpService';
@@ -19,6 +20,10 @@ export class ApiService {
 
     listTeams(): Promise<Team[]> {
         return this.httpService.get(this.apiRoot + '/team');
+    }
+
+    updateTeam(id: string, updateTeamRequest: UpsertTeamRequest): Promise<Team> {
+        return this.httpService.put(`${this.apiRoot}/team/${id}`, updateTeamRequest);
     }
 
     getRegions(): Promise<Region[]> {

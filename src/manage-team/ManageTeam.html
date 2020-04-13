@@ -1,0 +1,14 @@
+<form @submit="submit" v-if="ready">
+    <label for="teamName">Naam</label>
+    <input id="teamName" v-model="model.name">
+    <label for="regio">Regio</label>
+    <region-select id="regio" v-model="region" :regions="regions"></region-select>
+    <label for="home-turf">Thuisbasis</label>
+    <select id="home-turf" v-model="model.gymId">
+        <option :value="null" :disabled="model.gymId !== null">Kies een sportzaal ...</option>
+        <option v-for="gym in gyms" :value="gym.id">{{ gym.name }}</option>
+    </select>
+    <label for="level">Niveau</label>
+    <input id="level" type="number" v-model="model.level" min="1" :max="region ? region.lowestPossibleLevel : 5">
+    <button type="submit">Bewaren</button>
+</form>

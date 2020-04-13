@@ -17,6 +17,16 @@ export class HttpService {
         });
     }
 
+    put<T>(url: string, body: unknown): Promise<T> {
+        return this.fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+
     delete(url: string): Promise<void> {
         return this.fetch(url, {
             method: 'DELETE'
