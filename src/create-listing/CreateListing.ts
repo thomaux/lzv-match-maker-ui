@@ -15,12 +15,12 @@ import { Team } from '../common/models';
 })
 export class CreateListing extends Vue {
 
-    model: CreateListingModel;
-    regions: Region[];
-    team: Team;
+    model: CreateListingModel = null;
+    regions: Region[] = [];
+    team: Team = null;
 
-    region: Region;
-    gyms: Gym[];
+    region: Region = null;
+    gyms: Gym[] = [];
 
     ready = false;
 
@@ -48,6 +48,9 @@ export class CreateListing extends Vue {
 
     @Watch('region')
     async onRegionChanged(region: Region): Promise<void> {
+        if(!this.ready) {
+            return;
+        }
         this.gyms = await this.apiService.getGymsForRegion(region.id);
         this.model.clearGymAndLevelRange();
     }
