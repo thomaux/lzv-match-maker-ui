@@ -13,8 +13,8 @@ export class LevelRange extends Vue {
     @Prop()
     value: LevelRangeModel;
 
-    low = null;
-    high = null;
+    low: string = null;
+    high: string = null;
 
     @Watch('high')
     onHighChanged(): void {

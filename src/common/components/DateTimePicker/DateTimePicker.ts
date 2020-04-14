@@ -10,11 +10,11 @@ export class DateTimePicker extends Vue {
     @Prop()
     value: Date;
 
-    day = null;
-    month = null;
-    year = new Date().getFullYear();
+    day: string = null;
+    month: string = null;
+    year: string = new Date().getFullYear().toString();
 
-    hour = null;
+    hour: string = null;
     hours = buildHoursList([], 18);
 
     get date(): Date {

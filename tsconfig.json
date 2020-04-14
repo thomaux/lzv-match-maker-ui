@@ -1,5 +1,7 @@
 {
     "compilerOptions": {
+        "noImplicitThis": true,
+        "noImplicitAny": true,
         "target": "es5",
         "noEmit": true,
         "emitDecoratorMetadata": true,
