@@ -28,4 +28,13 @@ export class LevelRange extends Vue {
     onLowChanged(): void {
         this.$emit('input', new LevelRangeModel(parseInt(this.low, 10), parseInt(this.high, 10)));
     }
+
+    @Watch('value.min')
+    @Watch('value.max')
+    onValueChanged(): void {
+        if(!this.value.min && !this.value.max) {
+            this.high = null;
+            this.low = null;
+        }
+    }
 }

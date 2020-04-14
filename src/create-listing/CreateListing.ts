@@ -1,13 +1,12 @@
-import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Component, Vue, Ref } from 'vue-property-decorator';
 import * as components from '../common/components';
-import { Gym } from '../common/models/GymModel';
-import { Region } from '../common/models/RegionModel';
+import { Team } from '../common/models';
 import { ApiService } from '../common/services/ApiService';
+import { AuthService } from '../common/services/AuthService';
 import { lazyInject } from '../container';
 import template from './CreateListing.html';
-import { CreateListingModel } from './CreateListingModel';
-import { AuthService } from '../common/services/AuthService';
-import { Team } from '../common/models';
+import { CreateListingModel } from './models/CreateListingModel';
+import { LocationSelect } from '../common/components';
 
 @Component({
     template,
@@ -15,14 +14,11 @@ import { Team } from '../common/models';
 })
 export class CreateListing extends Vue {
 
-    model: CreateListingModel = null;
-    regions: Region[] = [];
-    team: Team = null;
+    model: CreateListingModel = new CreateListingModel();
+    team: Team = {} as Team;
 
-    region: Region = null;
-    gyms: Gym[] = [];
-
-    ready = false;
+    @Ref()
+    locationSelect: LocationSelect;
 
     @lazyInject(ApiService)
     apiService: ApiService;
@@ -30,28 +26,13 @@ export class CreateListing extends Vue {
     @lazyInject(AuthService)
     authService: AuthService;
 
-    async beforeMount(): Promise<void> {
+    async mounted(): Promise<void> {
         this.team = await this.authService.getTeamOfLoggedInUser();
-        this.model = new CreateListingModel(this.team);
-
-        this.regions = await this.apiService.getRegions();
-        this.region = this.regions.find(r => r.id === this.team.gym.regionId);
-
-        this.gyms = await this.apiService.getGymsForRegion(this.region.id);
-
-        this.ready = true;
+        this.model.populate(this.team);    
+        this.locationSelect.init(this.team.gym.regionId);
     }
 
     create(): void {
         this.apiService.createListing(this.model.toRequestBody());
-    }
-
-    @Watch('region')
-    async onRegionChanged(region: Region): Promise<void> {
-        if(!this.ready) {
-            return;
-        }
-        this.gyms = await this.apiService.getGymsForRegion(region.id);
-        this.model.clearGymAndLevelRange();
     }
 }

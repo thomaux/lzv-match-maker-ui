@@ -1,4 +1,0 @@
-<select v-model="selectedRegion" @change="$emit('input', selectedRegion)">
-    <option :value="null" :disabled="value !== null">Kies een regio ...</option>
-    <option v-for="region in regions" :value="region">{{ region.name }}</option>
-</select>

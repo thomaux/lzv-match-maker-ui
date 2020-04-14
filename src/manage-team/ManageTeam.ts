@@ -1,6 +1,5 @@
-import { Component, Vue, Watch } from 'vue-property-decorator';
-import { RegionSelect } from '../common/components';
-import { Gym, Region } from '../common/models';
+import { Component, Ref, Vue } from 'vue-property-decorator';
+import { LocationSelect } from '../common/components';
 import { ApiService } from '../common/services/ApiService';
 import { AuthService } from '../common/services/AuthService';
 import { lazyInject } from '../container';
@@ -9,17 +8,16 @@ import { UpsertTeamModel } from './models/UpsertTeamModel';
 
 @Component({
     components: {
-        RegionSelect
+        LocationSelect
     },
     template
 })
 export class ManageTeam extends Vue {
 
-    model: UpsertTeamModel = null;
+    model: UpsertTeamModel = new UpsertTeamModel();
 
-    regions: Region[] = [];
-    region: Region = null;
-    gyms: Gym[] = [];
+    @Ref()
+    readonly locationSelect: LocationSelect;
 
     @lazyInject(AuthService)
     authService: AuthService;
@@ -27,31 +25,17 @@ export class ManageTeam extends Vue {
     @lazyInject(ApiService)
     apiService: ApiService;
 
-    ready = false;
 
-    async created(): Promise<void> {
+    async mounted(): Promise<void> {
         const team = await this.authService.getTeamOfLoggedInUser();
-        this.model = new UpsertTeamModel(team);
-
-        this.regions = await this.apiService.getRegions();
-        const regionId = team && team.gym.regionId;
-        this.region = this.regions.find(r => r.id === regionId);
-
-        this.gyms = regionId ? await this.apiService.getGymsForRegion(regionId) : [];
-
-        this.ready = true;
+        if(team) {
+            this.model.populate(team);
+            this.locationSelect.init(team.gym.regionId, team.gym.id);
+        }
     }
 
     submit(): void {
         this.apiService.updateTeam(this.model.existingTeamId, this.model.toRequest());
     }
 
-    @Watch('region')
-    async onRegionChanged(region: Region): Promise<void> {
-        if(!this.ready) {
-            return;
-        }
-        this.gyms = await this.apiService.getGymsForRegion(region.id);
-        this.model.clearGymAndLevel();
-    }
 }

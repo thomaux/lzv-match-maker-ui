@@ -1,60 +1,62 @@
-import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Component, Vue, Watch, Ref } from 'vue-property-decorator';
 import { Dictionary } from 'vue-router/types/router';
-import { RegionSelect } from '../common/components';
+import { LocationSelect } from '../common/components';
 import { Listing, Region } from '../common/models';
 import { ApiService } from '../common/services/ApiService';
 import { lazyInject } from '../container';
-import { ListingsQueryModel, ListingsQueryObject } from './ListingsQueryModel';
+import { ListingsQueryModel, ListingsQuery } from './models/ListingsQueryModel';
 import template from './SearchListings.html';
 
 @Component({
     template,
     components: {
-        RegionSelect
+        LocationSelect
     }
 })
 export class SearchListings extends Vue {
 
     listings: Listing[] = [];
 
-    regions: Region[] = [];
-
     queryModel = new ListingsQueryModel();
-    isQueryModelInitialized = false; // TODO: is it OK to keep this flag on the main component or should we move it down to the region-select?
+
+    @Ref()
+    readonly locationSelect: LocationSelect;
 
     @lazyInject(ApiService)
     apiService: ApiService;
 
-    async beforeMount(): Promise<void> {
-        const queryParams: ListingsQueryObject<string> = this.$router.currentRoute.query;
-        this.regions = await this.apiService.getRegions();
+    async mounted(): Promise<void> {
+        const queryParams: ListingsQuery = this.$router.currentRoute.query;
+        const searchParams = new URLSearchParams();
 
-        if(queryParams.regionId) {
-            const regionId = parseInt(queryParams.regionId, 10);
-            this.queryModel.region = this.regions.find(r => r.id === regionId);
+        if (queryParams.regionId) {
+            this.locationSelect.init(parseInt(queryParams.regionId, 10));
+            searchParams.append('regionId', queryParams.regionId);
+        } else {
+            this.locationSelect.init(null);
         }
 
-        if(queryParams.level) {
+        if (queryParams.level) {
             this.queryModel.level = parseInt(queryParams.level, 10);
+            searchParams.append('level', queryParams.level);
         }
 
-        this.isQueryModelInitialized = true;
-
-        this.filterListings();
+        this.listings = await this.apiService.findListings('?' + searchParams.toString());  
     }
 
-    async filterListings(): Promise<void> {
+    async filterListings(queryObject: ListingsQueryModel | ListingsQuery): Promise<void> {
+        const query = queryObject instanceof ListingsQueryModel ? queryObject.toQuery() : queryObject;
         this.$router.replace({
             path: '/search',
-            query: this.queryModel.toQueryObject() as Dictionary<string>
+            query
         });
 
-        this.listings = await this.apiService.findListings(this.queryModel);
+        this.listings = await this.apiService.findListings(ListingsQueryModel.toQueryString(query));
     }
 
     @Watch('queryModel.region')
     @Watch('queryModel.level')
     onQueryModelChanged(): void {
-        this.filterListings();
+        this.filterListings(this.queryModel);
     }
 }

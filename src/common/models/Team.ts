@@ -1,4 +1,4 @@
-import { Gym } from './GymModel';
+import { Gym } from './Location';
 
 export interface Team {
     id: string;

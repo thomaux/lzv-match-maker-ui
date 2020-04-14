@@ -1,5 +1,5 @@
-import { LevelRangeModel } from '../common/components/LevelRange/LevelRangeModel';
-import { Team } from '../common/models';
+import { LevelRangeModel } from '../../common/components/LevelRange/LevelRangeModel';
+import { Team, Region } from '../../common/models';
 
 export interface CreateListingRequest {
     teamId: string;
@@ -15,16 +15,24 @@ export class CreateListingModel {
     date: Date;
     levelRange: LevelRangeModel;
 
-    constructor(team: Team) {
-        this.teamId = team.id;
-        this.gymId = team.gym.id;
+    lowestPossibleLevel = 5;
+
+    constructor() {
+        this.teamId = null;
+        this.gymId = null;
         this.date = undefined;
         this.levelRange = new LevelRangeModel();
     }
 
-    clearGymAndLevelRange(): void {
+    populate(team: Team): void {
+        this.teamId = team.id;
+        this.gymId = team.gym.id;
+    }
+
+    onRegionChanged(region: Region): void {
         this.gymId = undefined;
-        this.levelRange = new LevelRangeModel();
+        this.levelRange.clear();
+        this.lowestPossibleLevel = region.lowestPossibleLevel;
     }
 
     toRequestBody(): CreateListingRequest {

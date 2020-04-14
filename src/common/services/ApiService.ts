@@ -1,8 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { CONSTANTS } from '../../constants';
-import { CreateListingRequest } from '../../create-listing/CreateListingModel';
+import { CreateListingRequest } from '../../create-listing/models/CreateListingModel';
 import { UpsertTeamRequest } from '../../manage-team/models/UpsertTeamModel';
-import { ListingsQueryModel } from '../../search-listing/ListingsQueryModel';
 import { CreatedResponse, Gym, Listing, Region, Team } from '../models';
 import { HttpService } from './HttpService';
 
@@ -14,8 +13,8 @@ export class ApiService {
         @inject(CONSTANTS.AuthRoot) private authRoot: string,
         @inject(HttpService) private httpService: HttpService) { }
 
-    findListings(query: ListingsQueryModel): Promise<Listing[]> {
-        return this.httpService.get(`${this.apiRoot}/listing${query.toQueryString()}`);
+    findListings(query: string): Promise<Listing[]> {
+        return this.httpService.get(`${this.apiRoot}/listing${query}`);
     }
 
     listTeams(): Promise<Team[]> {

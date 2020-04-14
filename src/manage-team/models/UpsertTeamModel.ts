@@ -1,4 +1,4 @@
-import { Team } from '../../common/models';
+import { Team, Region, Gym } from '../../common/models';
 
 export interface UpsertTeamRequest {
     name: string;
@@ -9,30 +9,39 @@ export interface UpsertTeamRequest {
 export class UpsertTeamModel {
 
     name: string;
-    gymId: number;
+    gym: Gym;
     level: number;
 
     existingTeamId: string;
 
-    constructor(team: Team) {
-        if (team) {
-            this.name = team.name;
-            this.gymId = team.gym.id;
-            this.level = team.level;
-            this.existingTeamId = team.id;
-        }
+    lowestPossibleLevel = 5;
+
+    constructor() {
+        this.name = null;
+        this.gym = null;
+        this.level = 1;
     }
 
-    clearGymAndLevel(): void {
-        this.gymId = null;
-        this.level = null;
+    populate(team: Team): void {
+        this.name = team.name;
+        this.gym = team.gym;
+        this.level = team.level;
+        this.existingTeamId = team.id;
+    }
+
+    onRegionChanged(region: Region, isInit: boolean): void {
+        this.lowestPossibleLevel = region.lowestPossibleLevel;
+        if(!isInit) {
+            this.level = 1;
+        }
     }
 
     toRequest(): UpsertTeamRequest {
         return {
             name: this.name,
-            gymId: this.gymId,
-            level: this.level
+            gymId: this.gym.id,
+            level: parseInt(this.level + '', 10)
         };
     }
+
 }

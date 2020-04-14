@@ -1,8 +1,9 @@
-import { Region } from '../common/models/RegionModel';
+import { Dictionary } from 'vue-router/types/router';
+import { Region } from '../../common/models';
 
-export interface ListingsQueryObject<T> {
-    regionId?: T;
-    level?: T;
+export interface ListingsQuery extends Dictionary<string | string[]> {
+    regionId?: string;
+    level?: string;
 }
 
 export class ListingsQueryModel {
@@ -30,23 +31,21 @@ export class ListingsQueryModel {
         this.level = null;
     }
 
-    toQueryString(): string {
-        const queryObject = this.toQueryObject();
-        const keysWithValue = Object.keys(queryObject);
-
-        return keysWithValue.length ? '?' + keysWithValue.map(key => key + '=' + queryObject[key]).join('&') : '';
-    }
-
-    toQueryObject(): ListingsQueryObject<number> {
-        const queryObject: ListingsQueryObject<number> = {};
+    toQuery(): ListingsQuery {
+        const queryObject: ListingsQuery = {};
 
         if (this.region) {
-            queryObject.regionId = this.region.id ;
+            queryObject.regionId = '' + this.region.id ;
         }
         if (this.level) {
-            queryObject.level = this.level;
+            queryObject.level = '' + this.level;
         }
 
         return queryObject;
+    }
+
+    static toQueryString(query: ListingsQuery): string {
+        const keysWithValue = Object.keys(query);
+        return keysWithValue.length ? '?' + keysWithValue.map(key => key + '=' + query[key]).join('&') : '';
     }
 }
