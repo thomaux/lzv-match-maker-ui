@@ -15,6 +15,12 @@ export class LocationSelect extends Vue {
     @Prop({ default: 'gym' })
     locationType: 'region' | 'gym';
 
+    @Prop({ default: 'Regio' })
+    regionLabel: string;
+
+    @Prop({ default: 'Sporthal' })
+    gymLabel: string;
+
     regions: Region[] = [];
     region: Region = null;
     gyms: Gym[] = [];

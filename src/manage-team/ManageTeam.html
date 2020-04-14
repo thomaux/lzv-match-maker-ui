@@ -1,8 +1,7 @@
 <form @submit="submit">
     <label for="teamName">Naam</label>
     <input id="teamName" v-model="model.name">
-    <label for="regio">Regio</label>
-    <location-select v-model="model.gymId" ref="locationSelect" @region-changed="model.onRegionChanged(...arguments)"></location-select>
+    <location-select v-model="model.gymId" ref="locationSelect" @region-changed="model.onRegionChanged(...arguments)" gym-label="Thuisbasis"></location-select>
     <label for="level">Niveau</label>
     <input id="level" type="number" v-model="model.level" min="1" :max="model.lowestPossibleLevel">
     <button type="submit">Bewaren</button>

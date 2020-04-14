@@ -1,10 +1,14 @@
 <div>
-    <select v-model="region">
+    <label for="region">{{ regionLabel }}</label>
+    <select v-model="region" id="region">
         <option :value="null" :disabled="region !== null">Kies een regio ...</option>
         <option v-for="region in regions" :value="region">{{ region.name }}</option>
     </select>
-    <select v-model="gym" v-if="locationType === 'gym'">
-        <option :value="null" :disabled="gym !== null">Kies een sportzaal ...</option>
-        <option v-for="gym in gyms" :value="gym">{{ gym.name }}</option>
-    </select>
+    <template v-if="locationType === 'gym'">
+        <label for="gym">{{ gymLabel }}</label>
+        <select v-model="gym">
+            <option :value="null" :disabled="gym !== null">Kies een sportzaal ...</option>
+            <option v-for="gym in gyms" :value="gym">{{ gym.name }}</option>
+        </select>
+    </template>
 </div>

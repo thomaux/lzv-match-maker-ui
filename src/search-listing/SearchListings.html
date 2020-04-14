@@ -1,8 +1,7 @@
 <div>
     <form @reset="queryModel.clear()">
-        <label>Region</label>
         <location-select v-model="queryModel.region" location-type='region' ref="locationSelect"></location-select>
-        <label>Level</label>
+        <label>Niveau</label>
         <input v-model="queryModel.level" type="number" min="1" :max="queryModel.lowestPossibleLevel">
         <button type="reset">Clear</button>
     </form>
