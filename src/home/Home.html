@@ -1,9 +1,5 @@
-<div>
-    <a v-if="!isLoggedIn" href="https://localhost:8443/auth">Aanmelden</a>
-    <template v-if="isLoggedIn">
-        <button type="button" @click="logout">Afmelden</button>
-        <router-link to="/create">Ik heb een zaal en zoek een tegenstander</router-link>
-        <router-link to="/search">Ik zoek een tegenstander, maar heb geen zaal</router-link>
-        <router-link to="/team">Mijn team</router-link>
-    </template>
+<div class="home">
+    <router-link to="/create" tag="button">Ik heb een zaal <span class="action-detail">en zoek een tegenstander</span></router-link>
+    <div class="divider">of</div>
+    <router-link to="/search" tag="button">Ik zoek een tegenstander<span class="action-detail">maar heb geen zaal</span></router-link>
 </div>

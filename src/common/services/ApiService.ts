@@ -13,8 +13,12 @@ export class ApiService {
         @inject(CONSTANTS.AuthRoot) private authRoot: string,
         @inject(HttpService) private httpService: HttpService) { }
 
-    findListings(query: string): Promise<Listing[]> {
-        return this.httpService.get(`${this.apiRoot}/listing${query}`);
+    async findListings(query: string): Promise<Listing[]> {
+        const result = await this.httpService.get<Listing[]>(`${this.apiRoot}/listing${query}`);
+        return result.map(l => {
+            l.date = new Date(l.date);
+            return l;
+        });
     }
 
     listTeams(): Promise<Team[]> {

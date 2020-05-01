@@ -1,14 +1,36 @@
-<div>
+<div class="container search-listings">
     <form @reset="queryModel.clear()">
+        <h2>Zoek een vriendschappelijke wedstrijd</h2>
         <location-select v-model="queryModel.region" location-type='region' ref="locationSelect"></location-select>
-        <label>Niveau</label>
-        <input v-model="queryModel.level" type="number" min="1" :max="queryModel.lowestPossibleLevel">
-        <button type="reset">Clear</button>
+        <div class="form-element">
+            <label>Niveau</label>
+            <input v-model="queryModel.level" type="number" min="1" :max="queryModel.lowestPossibleLevel">
+        </div>
+        <button type="reset">Zoekopdracht wissen</button>
     </form>
     <ul>
-        <li v-show="!listings.length">Er zijn geen resultaten die aan je zoekopdracht voldoen</li>
+        <li v-show="listings.length === 1"><h2>1 Wedstrijd gevonden</h2></li>
+        <li v-show="listings.length !== 1"><h2>{{listings.length}} Wedstrijden gevonden</h2></li>
+        <li v-show="!listings.length">Er zijn geen wedstrijden die aan je zoekopdracht voldoen</li>
         <li v-for="listing in listings">
-            {{ listing }}
+            <div class="date">
+                <div class="day">
+                    {{ listing.date.getDate() }}
+                </div>
+                <div class="month">
+                    {{ listing.date.toLocaleString('nl', { month: 'long' }) }}
+                </div>
+            </div>
+            <div class="name-and-details">
+                <div class="team-name"><span class="versus">vs</span> {{ listing.teamName }}</div>
+                <div class="details">
+                    <div>🏆 {{ listing.minLevel }} <span v-if="listing.minLevel !== listing.maxLevel">- {{ listing.maxLevel }}</span></div>
+                    <div>🏟️ Gym</div>
+                    <div>
+    
+                    </div>
+                </>
+            </div>
         </li>
     </ul>
 </div>

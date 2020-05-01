@@ -1,6 +1,7 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import template from './DateTimePicker.html';
 import { buildHoursList, zeroPad } from './DateTimePickerUtils';
+import './DateTimePicker.scss';
 
 @Component({
     template

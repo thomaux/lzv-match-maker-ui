@@ -1,7 +1,18 @@
-<form @submit="create">
-    Wij, {{team.name}}, zoeken een tegenstander voor een vriendschappelijke wedstrijd 
-    <date-time-picker v-model="model.date"></date-time-picker> 
-    <location-select v-model="model.gymId" ref="locationSelect"  @region-changed="model.onRegionChanged(...arguments)" region-label="te" gym-label="in sporthal"></location-select>.
-    Liefst niveau <level-range v-model="model.levelRange" :lowest="model.lowestPossibleLevel"></level-range>.
+<form @submit="create" class="container">
+    <div class="form-element">
+    Wij, {{team.name}}, zoeken een tegenstander voor een vriendschappelijke wedstrijd
+    </div>
+    <div class="form-element">
+        <label>Op</label>
+        <date-time-picker v-model="model.date"></date-time-picker>
+    </div>
+    <location-select v-model="model.gymId" ref="locationSelect" @region-changed="model.onRegionChanged(...arguments)"
+        region-label="te regio" gym-label="in sporthal"></location-select>
+
+    <div class="form-element">
+        <label>Liefst niveau</label>
+        <level-range v-model="model.levelRange" :lowest="model.lowestPossibleLevel"></level-range>
+    </div>
+
     <button type="submit">Plaats</button>
 </form>

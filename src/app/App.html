@@ -1,4 +1,18 @@
 <div>
-    <router-link to="/">Home</router-link>
-    <router-view></router-view>
+    <div class="navbar">
+        <router-link to="/" tag="button" class="nav-link">LZV Match Maker</router-link>
+        <template v-if="isLoggedIn">
+            <router-link to="/team" tag="button" class="nav-link">Mijn team</router-link>
+            <button type="button" @click="logout" class="nav-link">Afmelden</button>
+        </template>
+        <template v-else>
+            <a href="https://localhost:8443/auth" class="nav-link">Aanmelden</a>
+        </template>
+    </div>
+    <div v-if="isLoggedIn">
+        <router-view></router-view>
+    </div>
+    <div v-else class="welcome">
+        <h1>Welkom bij LZV Match Maker!</h1>
+    </div>
 </div>

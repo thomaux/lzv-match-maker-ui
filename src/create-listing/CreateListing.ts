@@ -1,12 +1,12 @@
-import { Component, Vue, Ref } from 'vue-property-decorator';
+import { Component, Ref, Vue } from 'vue-property-decorator';
 import * as components from '../common/components';
+import { LocationSelect } from '../common/components';
 import { Team } from '../common/models';
 import { ApiService } from '../common/services/ApiService';
 import { AuthService } from '../common/services/AuthService';
 import { lazyInject } from '../container';
 import template from './CreateListing.html';
 import { CreateListingModel } from './models/CreateListingModel';
-import { LocationSelect } from '../common/components';
 
 @Component({
     template,

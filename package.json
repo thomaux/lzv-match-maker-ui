@@ -21,6 +21,7 @@
     "homepage": "https://github.com/thomaux/lzv-match-maker-ui#readme",
     "private": true,
     "dependencies": {
+        "app.css": "^0.1.2",
         "inversify": "^5.0.1",
         "inversify-inject-decorators": "^3.1.0",
         "reflect-metadata": "^0.1.13",
@@ -35,6 +36,7 @@
         "eslint-plugin-vue": "^6.1.2",
         "npm-run-all": "^4.1.5",
         "parcel-bundler": "^1.12.4",
+        "sass": "^1.26.5",
         "typescript": "^3.7.5"
     },
     "alias": {

@@ -1,0 +1,68 @@
+.search-listings {
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 50px;
+    }
+
+    li {
+        display: flex;
+        margin-bottom: 15px;
+    }
+
+    .name-and-details {
+        flex: 1 0 220px;
+        flex-direction: column;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .versus {
+        font-weight: bold;
+    }
+
+    .details {
+        display: flex;
+        justify-content: space-between;
+
+        div {
+            &:first-of-type {
+                flex: 1 0 65px;
+            }
+            &:nth-of-type(2) {
+                flex-grow: 4;
+            }
+
+            &:first-letter {
+                font-size: var(--primary-font-size);
+            }
+        }
+    }
+
+    .date {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        border: 2px solid rgb(var(--primary-color));
+        margin-right: 15px;
+
+        .day {
+            font-size: var(--primary-font-size);
+            font-weight: bold;
+            color: rgb(var(--primary-color));
+            margin: 15px 0 10px 0;
+        }
+
+        .month {
+            background-color: rgb(var(--primary-color));
+            color: white;
+            padding: 5px 10px;
+            font-size: var(--secondary-font-size);
+            &:first-letter {
+                text-transform: capitalize;
+            }
+        }
+    }
+}

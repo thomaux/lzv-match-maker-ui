@@ -1,11 +1,11 @@
-import { Component, Vue, Watch, Ref } from 'vue-property-decorator';
-import { Dictionary } from 'vue-router/types/router';
+import { Component, Ref, Vue, Watch } from 'vue-property-decorator';
 import { LocationSelect } from '../common/components';
-import { Listing, Region } from '../common/models';
+import { Listing } from '../common/models';
 import { ApiService } from '../common/services/ApiService';
 import { lazyInject } from '../container';
-import { ListingsQueryModel, ListingsQuery } from './models/ListingsQueryModel';
+import { ListingsQuery, ListingsQueryModel } from './models/ListingsQueryModel';
 import template from './SearchListings.html';
+import './SearchListings.scss';
 
 @Component({
     template,

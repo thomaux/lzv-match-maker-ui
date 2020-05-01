@@ -1,8 +1,14 @@
-<form @submit="submit">
-    <label for="teamName">Naam</label>
-    <input id="teamName" v-model="model.name">
-    <location-select v-model="model.gymId" ref="locationSelect" @region-changed="model.onRegionChanged(...arguments)" gym-label="Thuisbasis"></location-select>
-    <label for="level">Niveau</label>
-    <input id="level" type="number" v-model="model.level" min="1" :max="model.lowestPossibleLevel">
+<form @submit="submit" class="container">
+    <h2>Mijn Team</h2>
+    <div class="form-element">
+        <label for="teamName">Naam</label>
+        <input id="teamName" v-model="model.name">
+    </div>
+    <location-select v-model="model.gymId" ref="locationSelect" @region-changed="model.onRegionChanged(...arguments)"
+        gym-label="Thuisbasis"></location-select>
+    <div class="form-element">
+        <label for="level">Niveau</label>
+        <input id="level" type="number" v-model="model.level" min="1" :max="model.lowestPossibleLevel">
+    </div>
     <button type="submit">Bewaren</button>
 </form>
