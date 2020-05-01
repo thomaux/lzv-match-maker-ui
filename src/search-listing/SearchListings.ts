@@ -54,6 +54,10 @@ export class SearchListings extends Vue {
         this.listings = await this.apiService.findListings(ListingsQueryModel.toQueryString(query));
     }
 
+    get sortedListings(): Listing[] {
+        return this.listings.sort((a, b) => a.date.getTime() - b.date.getTime());
+    }
+
     @Watch('queryModel.region')
     @Watch('queryModel.level')
     onQueryModelChanged(): void {

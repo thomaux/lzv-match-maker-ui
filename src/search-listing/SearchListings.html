@@ -12,20 +12,20 @@
         <li v-show="listings.length === 1"><h2>1 Wedstrijd gevonden</h2></li>
         <li v-show="listings.length !== 1"><h2>{{listings.length}} Wedstrijden gevonden</h2></li>
         <li v-show="!listings.length">Er zijn geen wedstrijden die aan je zoekopdracht voldoen</li>
-        <li v-for="listing in listings">
+        <li v-for="listing in sortedListings">
             <div class="date">
+                <div class="month">
+                    {{ listing.date.toLocaleString('nl', { month: 'short' }) }}
+                </div>
                 <div class="day">
                     {{ listing.date.getDate() }}
                 </div>
-                <div class="month">
-                    {{ listing.date.toLocaleString('nl', { month: 'long' }) }}
-                </div>
             </div>
             <div class="name-and-details">
-                <div class="team-name"><span class="versus">vs</span> {{ listing.teamName }}</div>
+                <div class="team-name"><span class="versus">vs</span> {{ listing.team.name }}</div>
                 <div class="details">
                     <div>🏆 {{ listing.minLevel }} <span v-if="listing.minLevel !== listing.maxLevel">- {{ listing.maxLevel }}</span></div>
-                    <div>🏟️ Gym</div>
+                    <div>🏟️ {{ listing.gym.name }} ({{ listing.region.name }})</div>
                     <div>
     
                     </div>

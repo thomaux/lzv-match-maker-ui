@@ -46,23 +46,30 @@
         align-items: center;
         justify-content: space-between;
         border: 2px solid rgb(var(--primary-color));
-        margin-right: 15px;
+        margin-right: 25px;
+
+        width: 80px;
+        height: 80px;
 
         .day {
             font-size: var(--primary-font-size);
             font-weight: bold;
             color: rgb(var(--primary-color));
-            margin: 15px 0 10px 0;
+            flex-grow: 2;;
         }
 
         .month {
             background-color: rgb(var(--primary-color));
             color: white;
-            padding: 5px 10px;
             font-size: var(--secondary-font-size);
             &:first-letter {
                 text-transform: capitalize;
             }
+            width: 100%;
+            text-align: center;
+            flex-grow: 1;
+            padding-top: 5px;
+            margin-bottom: 15px;
         }
     }
 }
