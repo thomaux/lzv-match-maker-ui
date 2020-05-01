@@ -6,7 +6,7 @@
         <label>Op</label>
         <date-time-picker v-model="model.date"></date-time-picker>
     </div>
-    <location-select v-model="model.gymId" ref="locationSelect" @region-changed="model.onRegionChanged(...arguments)"
+    <location-select v-model="model.gym" ref="locationSelect" @region-changed="model.onRegionChanged(...arguments)"
         region-label="te regio" gym-label="in sporthal"></location-select>
 
     <div class="form-element">
