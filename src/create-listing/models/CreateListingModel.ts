@@ -19,7 +19,7 @@ export class CreateListingModel {
 
     constructor() {
         this.teamId = null;
-        this.gymId = null;
+        this.gym = null;
         this.date = undefined;
         this.levelRange = new LevelRangeModel();
     }
@@ -36,6 +36,10 @@ export class CreateListingModel {
     }
 
     toRequestBody(): CreateListingRequest {
+        if(!this.gym || !this.date || !this.levelRange.isValid() ) {
+            return undefined;
+        }
+
         return {
             teamId: this.teamId,
             gymId: this.gym.id,

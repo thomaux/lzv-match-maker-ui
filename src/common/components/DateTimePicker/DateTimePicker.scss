@@ -1,11 +1,12 @@
 .date-time-picker {
-    flex-grow: 4 0 240px;
-    input {
-        max-width: 60px;
+    flex-grow: 4;
+    display: flex;
+
+    align-items: baseline;
+
+    input, select {
+        flex: 1 1 0;
+        width: 2em;
     }
 
-    select {
-        display: inline-block;
-        width: 110px;
-    }
 }

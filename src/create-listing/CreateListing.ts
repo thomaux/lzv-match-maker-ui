@@ -32,7 +32,11 @@ export class CreateListing extends Vue {
         this.locationSelect.init(this.team.gym.regionId);
     }
 
-    create(): void {
-        this.apiService.createListing(this.model.toRequestBody());
+    async create(): Promise<void> {
+        const request = this.model.toRequestBody();
+        if(request) {
+            await this.apiService.createListing(this.model.toRequestBody());
+            this.$router.push('search');
+        }
     }
 }

@@ -5,4 +5,8 @@ export class LevelRangeModel {
         this.min = null;
         this.max = null;
     }
+
+    isValid(): boolean {
+        return this.max > 0 && this.min > this.max;
+    }
 }

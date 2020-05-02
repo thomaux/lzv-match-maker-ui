@@ -1,9 +1,10 @@
 <div class="date-time-picker">
-    <input v-model="day" type="number" min="1">/
-    <input v-model="month" type="number" min="1">/
-    <input v-model="year" type="number">
+    <input v-model="day" type="number" min="1" max="31" required placeholder="DD">/
+    <input v-model="month" type="number" min="1" max="12" required placeholder="MM">/
+    <input v-model="year" type="number" required placeholder="JJJ">
     om
-    <select v-model="hour">
+    <select v-model="hour" required>
+        <option :value="null" :disabled="hour !== null">tijdstip</option>
         <option v-for="h in hours" :value="h">{{ h }}</option>
     </select>
 </div>

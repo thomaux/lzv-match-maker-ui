@@ -9,7 +9,7 @@
     <template v-if="locationType === 'gym'">
         <div class="form-element">
         <label for="gym">{{ gymLabel }}</label>
-        <select v-model="gym">
+        <select v-model="gym" required>
             <option :value="null" :disabled="gym !== null">Kies een sportzaal ...</option>
             <option v-for="gym in gyms" :value="gym">{{ gym.name }}</option>
         </select>
