@@ -2,10 +2,14 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { lazyInject } from '../../../container';
 import { Gym, Location, Region } from '../../models';
 import { ApiService } from '../../services/ApiService';
+import { FormElement } from '../FormElement/FormElement';
 import template from './LocationSelect.html';
 
 @Component({
-    template
+    template,
+    components: {
+        FormElement
+    }
 })
 export class LocationSelect extends Vue {
 

@@ -1,4 +1,4 @@
-<div>
-   <input type="number" step="1" :min="high || 1" :disabled="!lowest" :max="lowest" v-model="low"> tot
-   <input type="number" step="1" min="1" :disabled="!lowest" :max="lowest" v-model="high">
+<div :class="{ invalid: isInvalid }">
+   <input type="number" step="1" :min="high || 1" :disabled="!lowest" :max="lowest" v-model="low" required> tot
+   <input type="number" step="1" min="1" :disabled="!lowest" :max="lowest" v-model="high" required>
 </div>

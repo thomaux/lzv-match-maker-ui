@@ -1,4 +1,4 @@
-<div class="date-time-picker">
+<div class="date-time-picker" :class="{ invalid: isInvalid }">
     <input v-model="day" type="number" min="1" max="31" required placeholder="DD">/
     <input v-model="month" type="number" min="1" max="12" required placeholder="MM">/
     <input v-model="year" type="number" required placeholder="JJJ">

@@ -18,9 +18,14 @@ export class DateTimePicker extends Vue {
     hour: string = null;
     hours = buildHoursList([], 18);
 
+
     get date(): Date {
         const date = new Date(`${this.year}-${zeroPad(this.month)}-${zeroPad(this.day)}T${this.hour}:00.000Z`);
         return isNaN(date.getTime()) ? undefined : date;
+    }
+
+    get isInvalid(): boolean {
+        return !(this.date || !this.day || !this.month || !this.year || !this.hour);
     }
 
     @Watch('date')

@@ -16,6 +16,9 @@ export class LevelRange extends Vue {
     low: string = null;
     high: string = null;
 
+    isInvalid = false;
+    touched = false;
+
     @Watch('high')
     onHighChanged(): void {
         if (this.low < this.high) {
@@ -26,6 +29,7 @@ export class LevelRange extends Vue {
 
     @Watch('low')
     onLowChanged(): void {
+        this.touched = true;
         this.$emit('input', new LevelRangeModel(parseInt(this.low, 10), parseInt(this.high, 10)));
     }
 
@@ -36,5 +40,6 @@ export class LevelRange extends Vue {
             this.high = null;
             this.low = null;
         }
+        this.isInvalid = this.touched && !(this.low && this.high);
     }
 }

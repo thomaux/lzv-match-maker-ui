@@ -1,5 +1,5 @@
 import { Component, Ref, Vue } from 'vue-property-decorator';
-import { LocationSelect } from '../common/components';
+import { FormElement, LocationSelect } from '../common/components';
 import { ApiService } from '../common/services/ApiService';
 import { AuthService } from '../common/services/AuthService';
 import { lazyInject } from '../container';
@@ -8,7 +8,8 @@ import { UpsertTeamModel } from './models/UpsertTeamModel';
 
 @Component({
     components: {
-        LocationSelect
+        LocationSelect,
+        FormElement
     },
     template
 })
