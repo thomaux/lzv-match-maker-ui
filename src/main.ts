@@ -3,6 +3,7 @@ import 'vue-class-component/hooks';
 import Vue from 'vue';
 import { App } from './app/App';
 import { router } from './router/Router';
+import { vuetify } from './vuetify';
 
 new Vue({
     el: '#app',
@@ -10,5 +11,6 @@ new Vue({
     components: {
         App
     },
-    router
+    router,
+    vuetify
 });

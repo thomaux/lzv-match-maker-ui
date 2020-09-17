@@ -1,15 +1,8 @@
-<form @submit="submit" class="container">
+<v-form ref="form" v-model="model.valid">
     <h2>Mijn Team</h2>
-    <form-element label="Naam">
-        <input id="teamName" v-model="model.name" required>
-    </form-element>
+    <v-text-field v-model="model.name" label="Naam" :rules="model.rules.name"></v-text-field>
     <location-select v-model="model.gymId" ref="locationSelect" @region-changed="model.onRegionChanged(...arguments)"
         gym-label="Thuisbasis"></location-select>
-    <form-element label="Niveau">
-        <input id="level" type="number" required v-model="model.level" min="1" :max="model.lowestPossibleLevel">
-    </form-element>
-    <div class="warning">
-        Gelieve alle velden correct in te vullen.
-    </div>
-    <button type="submit">Bewaren</button>
-</form>
+    <v-text-field v-model="model.level" label="Niveau" :rules="model.rules.level"></v-text-field>
+    <v-btn :disabled="!model.valid" @click="submit">Bewaren</v-btn>
+</v-form>

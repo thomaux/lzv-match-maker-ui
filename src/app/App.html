@@ -1,18 +1,32 @@
-<div>
-    <div class="navbar">
-        <router-link to="/" tag="button" class="nav-link">LZV Match Maker</router-link>
+<v-app>
+    <v-app-bar app>
+        <router-link to="/" tag="v-toolbar-title">LZV Match Maker</router-link>
+
+        <v-spacer></v-spacer>
+
         <template v-if="isLoggedIn">
-            <router-link to="/team" tag="button" class="nav-link">Mijn team</router-link>
-            <button type="button" @click="logout" class="nav-link">Afmelden</button>
+
+        <v-btn icon to="/team">
+            <v-icon>people</v-icon>
+        </v-btn>
+
+        <v-btn icon @click="logout">
+            <v-icon>exit_to_app</v-icon>
+        </v-btn>
         </template>
         <template v-else>
-            <a href="https://localhost:8443/auth" class="nav-link">Aanmelden</a>
+            <a href="https://localhost:8443/auth"><v-icon>login</v-icon></a>
         </template>
-    </div>
-    <div v-if="isLoggedIn">
-        <router-view></router-view>
-    </div>
-    <div v-else class="welcome">
-        <h1>Welkom bij LZV Match Maker!</h1>
-    </div>
-</div>
+    </v-app-bar>
+
+    <v-main>
+        <v-container fluid>
+            <div v-if="isLoggedIn">
+                <router-view></router-view>
+            </div>
+            <div v-else class="welcome">
+                <h1>Welkom bij LZV Match Maker!</h1>
+            </div>
+        </v-container>
+    </v-main>
+</v-app>

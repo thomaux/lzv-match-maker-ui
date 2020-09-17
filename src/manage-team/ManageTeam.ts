@@ -26,10 +26,9 @@ export class ManageTeam extends Vue {
     @lazyInject(ApiService)
     apiService: ApiService;
 
-
     async mounted(): Promise<void> {
         const team = await this.authService.getTeamOfLoggedInUser();
-        if(team) {
+        if (team) {
             this.model.populate(team);
             this.locationSelect.init(team.gym.regionId, team.gym.id);
         }
@@ -38,5 +37,4 @@ export class ManageTeam extends Vue {
     submit(): void {
         this.apiService.updateTeam(this.model.existingTeamId, this.model.toRequest());
     }
-
 }

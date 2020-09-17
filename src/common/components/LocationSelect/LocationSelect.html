@@ -1,16 +1,10 @@
 <div>
-    <form-element :label="regionLabel">
-        <select v-model="region" id="region">
-            <option :value="null" :disabled="region !== null">Kies een regio ...</option>
-            <option v-for="region in regions" :value="region">{{ region.name }}</option>
-        </select>
-    </form-element>
+    <v-select id="region" :label="regionLabel" v-model="region" :items="regions" placeholder="Kies een regio" item-text="name"
+        return-object :rules="rules.region">
+    </v-select>
     <template v-if="locationType === 'gym'">
-        <form-element :label="gymLabel">
-            <select id="gym" v-model="gym" required>
-                <option :value="null" :disabled="gym !== null">Kies een sportzaal ...</option>
-                <option v-for="gym in gyms" :value="gym">{{ gym.name }}</option>
-            </select>
-        </form-element>
+        <v-select id="gym" :label="gymLabel" v-model="gym" :items="gyms" placeholder="Kies een sportzaal" item-text="name"
+            return-object :rules="rules.gym">
+        </v-select>
     </template>
 </div>
