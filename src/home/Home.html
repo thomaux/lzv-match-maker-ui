@@ -1,5 +1,34 @@
-<div class="home">
-    <router-link to="/create" tag="button">Ik heb een zaal <span class="action-detail">en zoek een tegenstander</span></router-link>
-    <div class="divider">of</div>
-    <router-link to="/search" tag="button">Ik zoek een tegenstander<span class="action-detail">maar heb geen zaal</span></router-link>
-</div>
+<v-container>
+    <v-row>
+        <v-col>
+            <router-link to="/create" tag="v-card">
+                <v-container>
+                    <v-row>
+                        <v-col cols="2" class="d-flex justify-center align-center">
+                            <v-icon x-large color="primary">where_to_vote</v-icon>
+                        </v-col>
+                        <v-col>
+                            <v-card-title>Wij hebben een zaal</v-card-title>
+                            <v-card-text>En zoeken een tegenstander</v-card-text>
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </router-link>
+        </v-col>
+        <v-col>
+            <router-link to="/search" tag="v-card">
+                <v-container>
+                    <v-row>
+                        <v-col cols="2" class="d-flex justify-center align-center">
+                            <v-icon color="error" x-large>not_listed_location</v-icon>
+                        </v-col>
+                        <v-col>
+                            <v-card-title>Wij zoeken een tegenstander</v-card-title>
+                            <v-card-text>Maar hebben geen zaal</v-card-text>
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </router-link>
+        </v-col>
+    </v-row>
+</v-container>

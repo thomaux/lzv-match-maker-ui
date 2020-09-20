@@ -6,12 +6,12 @@
 
         <template v-if="isLoggedIn">
 
-        <v-btn icon to="/team">
-            <v-icon>people</v-icon>
+        <v-btn text to="/team">
+            <v-icon left>people</v-icon> Mijn team
         </v-btn>
 
-        <v-btn icon @click="logout">
-            <v-icon>exit_to_app</v-icon>
+        <v-btn text @click="logout">
+            <v-icon left>exit_to_app</v-icon> Afmelden
         </v-btn>
         </template>
         <template v-else>
