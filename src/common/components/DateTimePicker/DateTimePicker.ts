@@ -1,7 +1,5 @@
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Component, Prop, Ref, Vue, Watch } from 'vue-property-decorator';
 import template from './DateTimePicker.html';
-import { buildHoursList, zeroPad } from './DateTimePickerUtils';
-import './DateTimePicker.scss';
 
 @Component({
     template
@@ -11,25 +9,27 @@ export class DateTimePicker extends Vue {
     @Prop()
     value: Date;
 
-    day: string = null;
-    month: string = null;
-    year: string = new Date().getFullYear().toString();
+    date: Date = null;
+    time: string = null;
 
-    hour: string = null;
-    hours = buildHoursList([], 18);
+    @Ref()
+    dateMenu: unknown;
+    dateMenuOpen = false;
+   
+    @Ref()
+    timeMenu: unknown;
+    timeMenuOpen = false;
 
 
-    get date(): Date {
-        const date = new Date(`${this.year}-${zeroPad(this.month)}-${zeroPad(this.day)}T${this.hour}:00.000Z`);
-        return isNaN(date.getTime()) ? undefined : date;
+    today = new Date().toISOString();
+
+    get dateTime(): Date {
+      return new Date(`${this.date}T${this.time}:00.000Z`);
     }
 
-    get isInvalid(): boolean {
-        return !(this.date || !this.day || !this.month || !this.year || !this.hour);
-    }
-
-    @Watch('date')
-    onDateChanged(): void {
-        this.$emit('input', this.date);
+    @Watch('dateTime')
+    onDateChanged(dateTime: Date): void {
+        console.log(dateTime);
+        this.$emit('input', dateTime);
     }
 }

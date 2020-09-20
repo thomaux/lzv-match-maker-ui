@@ -13,7 +13,8 @@ export class CreateListingModel {
     teamId: string;
     gym: Gym;
     date: Date;
-    levelRange: LevelRangeModel;
+    time: string;
+    levelRange: number[];
 
     lowestPossibleLevel = 5;
 
@@ -21,7 +22,7 @@ export class CreateListingModel {
         this.teamId = null;
         this.gym = null;
         this.date = undefined;
-        this.levelRange = new LevelRangeModel();
+        this.levelRange = [1, this.lowestPossibleLevel];
     }
 
     populate(team: Team): void {
@@ -31,12 +32,12 @@ export class CreateListingModel {
 
     onRegionChanged(region: Region): void {
         this.gym = undefined;
-        this.levelRange.clear();
+        this.levelRange = [1, region.lowestPossibleLevel];
         this.lowestPossibleLevel = region.lowestPossibleLevel;
     }
 
     toRequestBody(): CreateListingRequest {
-        if(!this.gym || !this.date || !this.levelRange.isValid() ) {
+        if(!this.gym || !this.date ) {
             return undefined;
         }
 
@@ -44,8 +45,8 @@ export class CreateListingModel {
             teamId: this.teamId,
             gymId: this.gym.id,
             date: this.date.toISOString(),
-            minLevel: this.levelRange.min,
-            maxLevel: this.levelRange.max
+            minLevel: this.levelRange[1],
+            maxLevel: this.levelRange[0]
         };
     }
 }

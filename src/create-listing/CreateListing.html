@@ -1,20 +1,10 @@
-<form @submit="create" class="container">
-    <div class="form-element">
+<v-form v-model="model.valid">
     Wij, {{team.name}}, zoeken een tegenstander voor een vriendschappelijke wedstrijd
-    </div>
-    <div class="form-element">
-        <label>Op</label>
-        <date-time-picker v-model="model.date"></date-time-picker>
-    </div>
+    <date-time-picker v-model="model.date"></date-time-picker>
     <location-select v-model="model.gym" ref="locationSelect" @region-changed="model.onRegionChanged(...arguments)"
-        region-label="te regio" gym-label="in sporthal"></location-select>
+        region-label="te regio" gym-label="in sportzaal"></location-select>
+    <v-range-slider label="Niveau liefst tussen" v-model="model.levelRange" min="1" :max="model.lowestPossibleLevel"
+        thumb-label="always"></v-range-slider>
 
-    <div class="form-element">
-        <label>Liefst niveau</label>
-        <level-range v-model="model.levelRange" :lowest="model.lowestPossibleLevel"></level-range>
-    </div>
-    <div class="warning">
-        Gelieve alle velden correct in te vullen.
-    </div>
-    <button type="submit">Plaats</button>
-</form>
+    <v-btn :disabled="!model.valid" @click="create">Plaats</v-btn>
+</v-form>
