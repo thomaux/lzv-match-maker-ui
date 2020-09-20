@@ -1,4 +1,5 @@
 import { Component, Prop, Ref, Vue, Watch } from 'vue-property-decorator';
+import { required } from '../../validation';
 import template from './DateTimePicker.html';
 
 @Component({
@@ -20,6 +21,10 @@ export class DateTimePicker extends Vue {
     timeMenu: unknown;
     timeMenuOpen = false;
 
+    rules = {
+        date: [required],
+        time: [required]
+    }
 
     today = new Date().toISOString();
 
@@ -29,7 +34,6 @@ export class DateTimePicker extends Vue {
 
     @Watch('dateTime')
     onDateChanged(dateTime: Date): void {
-        console.log(dateTime);
         this.$emit('input', dateTime);
     }
 }

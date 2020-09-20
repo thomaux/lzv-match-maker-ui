@@ -23,7 +23,7 @@
 
     <h2>{{ listings.length }} wedstrijd{{ listings.length !== 1 ? "en" : "" }} gevonden</h2>
 
-    <v-card v-for="listing in sortedListings">
+    <v-card v-for="listing in sortedListings" :key="listing.id">
         <v-container>
             <v-row>
                 <v-col cols="2" xl="1">

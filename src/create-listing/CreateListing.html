@@ -1,7 +1,7 @@
 <v-form v-model="model.valid">
     Wij, {{team.name}}, zoeken een tegenstander voor een vriendschappelijke wedstrijd
     <date-time-picker v-model="model.date"></date-time-picker>
-    <location-select v-model="model.gym" ref="locationSelect" @region-changed="model.onRegionChanged(...arguments)"
+    <location-select v-model="model.gym" ref="locationSelect" required @region-changed="model.onRegionChanged(...arguments)"
         region-label="te regio" gym-label="in sportzaal"></location-select>
     <v-range-slider label="Niveau liefst tussen" v-model="model.levelRange" min="1" :max="model.lowestPossibleLevel"
         thumb-label="always"></v-range-slider>

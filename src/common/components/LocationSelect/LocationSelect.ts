@@ -22,18 +22,28 @@ export class LocationSelect extends Vue {
     @Prop({ default: 'Sporthal' })
     gymLabel: string;
 
+    @Prop({ default: false })
+    required: boolean;
+
     regions: Region[] = [];
     region: Region = null;
     gyms: Gym[] = [];
     gym: Gym = null;
 
-    rules = {
-        region: [required],
-        gym: [required]
+    rules: { region: Function[]; gym: Function[] } = {
+        region: [],
+        gym: []
     }
 
     @lazyInject(ApiService)
     apiService: ApiService;
+
+    beforeMount(): void {
+        if (this.required) {
+            this.rules.region.push(required);
+            this.rules.gym.push(required);
+        }
+    }
 
     async init(regionId: number, gymId?: number): Promise<void> {
         this.regions = await this.apiService.getRegions();

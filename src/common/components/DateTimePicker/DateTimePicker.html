@@ -2,7 +2,8 @@
     <v-menu ref="dateMenu" v-model="dateMenuOpen" :close-on-content-click="false" :return-value.sync="date"
         transition="scale-transition" offset-y min-width="290px">
         <template v-slot:activator="{ on, attrs }">
-            <v-text-field v-model="date" label="Op" prepend-icon="event" readonly v-bind="attrs" v-on="on">
+            <v-text-field v-model="date" label="Op" prepend-icon="event" readonly v-bind="attrs" v-on="on"
+                :rules="rules.date">
             </v-text-field>
         </template>
         <v-date-picker v-model="date" no-title scrollable @click:date="$refs.dateMenu.save(date)" :min="today"
@@ -14,7 +15,8 @@
     <v-menu ref="timeMenu" v-model="timeMenuOpen" :close-on-content-click="false" :return-value.sync="time"
         transition="scale-transition" offset-y min-width="290px">
         <template v-slot:activator="{ on, attrs }">
-            <v-text-field v-model="time" label="Om" prepend-icon="schedule" readonly v-bind="attrs" v-on="on">
+            <v-text-field v-model="time" label="Om" prepend-icon="schedule" readonly v-bind="attrs" v-on="on"
+                :rules="rules.time">
             </v-text-field>
         </template>
         <v-time-picker v-model="time" format="24hr" min="18:00" max="22:00" :allowed-minutes="[0,30]"
