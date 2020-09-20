@@ -1,5 +1,4 @@
-import { LevelRangeModel } from '../../common/components/LevelRange/LevelRangeModel';
-import { Team, Region, Gym } from '../../common/models';
+import { Gym, Region, Team } from '../../common/models';
 
 export interface CreateListingRequest {
     teamId: string;

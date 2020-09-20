@@ -3,14 +3,10 @@ import { lazyInject } from '../../../container';
 import { Gym, Location, Region } from '../../models';
 import { ApiService } from '../../services/ApiService';
 import { required } from '../../validation';
-import { FormElement } from '../FormElement/FormElement';
 import template from './LocationSelect.html';
 
 @Component({
-    template,
-    components: {
-        FormElement
-    }
+    template
 })
 export class LocationSelect extends Vue {
 
