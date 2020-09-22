@@ -1,34 +1,12 @@
 <v-container>
     <v-row>
         <v-col>
-            <router-link to="/create" tag="v-card">
-                <v-container>
-                    <v-row>
-                        <v-col cols="2" class="d-flex justify-center align-center">
-                            <v-icon x-large color="primary">where_to_vote</v-icon>
-                        </v-col>
-                        <v-col>
-                            <v-card-title>Wij hebben een zaal</v-card-title>
-                            <v-card-text>En zoeken een tegenstander</v-card-text>
-                        </v-col>
-                    </v-row>
-                </v-container>
-            </router-link>
+            <home-link to="/create" icon-color="success" icon-name="where_to_vote" label="Wij hebben een zaal"
+                sub-text="En zoeken een tegenstander"></home-link>
         </v-col>
         <v-col>
-            <router-link to="/search" tag="v-card">
-                <v-container>
-                    <v-row>
-                        <v-col cols="2" class="d-flex justify-center align-center">
-                            <v-icon color="error" x-large>not_listed_location</v-icon>
-                        </v-col>
-                        <v-col>
-                            <v-card-title>Wij zoeken een tegenstander</v-card-title>
-                            <v-card-text>Maar hebben geen zaal</v-card-text>
-                        </v-col>
-                    </v-row>
-                </v-container>
-            </router-link>
+            <home-link to="/search" icon-color="error" icon-name="not_listed_location"
+                label="Wij zoeken een tegenstander" sub-text="Maar hebben geen zaal"></home-link>
         </v-col>
     </v-row>
 </v-container>

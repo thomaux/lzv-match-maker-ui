@@ -1,62 +1,25 @@
-<div class="container search-listings">
+<v-container class="search-listings">
     <h2>Zoek een vriendschappelijke wedstrijd</h2>
     <v-form>
-        <v-container>
-            <v-row>
-                <v-col>
-                    <location-select v-model="queryModel.region" location-type='region' ref="locationSelect">
-                    </location-select>
-                </v-col>
-                <v-col>
-                    <v-text-field v-model="queryModel.level" label="Niveau" type="number" min="1"
-                        :max="queryModel.lowestPossibleLevel">
-                </v-col>
-                <v-col class="d-flex align-center">
-                    <v-btn @click="queryModel.clear()" icon>
-                        <v-icon>clear</v-icon>
-                    </v-btn>
-                </v-col>
-            </v-row>
-            </v-text-field>
-        </v-container>
+        <v-row>
+            <v-col>
+                <location-select v-model="queryModel.region" location-type="region" ref="locationSelect">
+                </location-select>
+            </v-col>
+            <v-col>
+                <v-text-field v-model="queryModel.level" label="Niveau" type="number" min="1"
+                    :max="queryModel.lowestPossibleLevel">
+            </v-col>
+            <v-col class="d-flex align-center">
+                <v-btn @click="queryModel.clear()" icon>
+                    <v-icon>clear</v-icon>
+                </v-btn>
+            </v-col>
+        </v-row>
+        </v-text-field>
     </v-form>
 
     <h2>{{ listings.length }} wedstrijd{{ listings.length !== 1 ? "en" : "" }} gevonden</h2>
 
-    <v-card v-for="listing in sortedListings" :key="listing.id">
-        <v-container>
-            <v-row>
-                <v-col cols="2" xl="1">
-                    <v-card class="date">
-                        <v-card-title class="month">
-                            {{ listing.date.toLocaleString('nl', { month: 'short' }) }}
-                        </v-card-title>
-                        <div class="day"> {{ listing.date.getDate() }}</div>
-                    </v-card>
-                </v-col>
-                <v-col>
-                    <v-row>
-                        <v-col>
-                            <v-card-title>vs {{ listing.team.name }}</v-card-title>
-                        </v-col>
-                        <v-col>
-                            <v-card-actions>
-                                <v-btn text color="primary">Wij kunnen!</v-btn>
-                            </v-card-actions>
-                        </v-col>
-                    </v-row>
-                    <v-row>
-                        <v-col>
-                            <v-icon>emoji_events</v-icon> {{ listing.minLevel }} <span
-                                v-if="listing.minLevel !== listing.maxLevel">- {{ listing.maxLevel }}</span>
-                        </v-col>
-                        <v-col>
-                            <v-icon>place</v-icon>
-                            </v-icon>{{ listing.region.name }} ({{ listing.gym.name }})
-                        </v-col>
-                    </v-row>
-                </v-col>
-            </v-row>
-        </v-container>
-    </v-card>
-</div>
+    <search-listing-result v-for="listing in sortedListings" :key="listing.id" :listing="listing"></search-listing-result>
+</v-container>

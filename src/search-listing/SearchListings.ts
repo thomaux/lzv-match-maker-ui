@@ -4,13 +4,15 @@ import { Listing } from '../common/models';
 import { ApiService } from '../common/services/ApiService';
 import { lazyInject } from '../container';
 import { ListingsQuery, ListingsQueryModel } from './models/ListingsQueryModel';
+import { SearchListingResult } from './searchListingResult';
 import template from './SearchListings.html';
 import './SearchListings.scss';
 
 @Component({
     template,
     components: {
-        LocationSelect
+        LocationSelect,
+        SearchListingResult
     }
 })
 export class SearchListings extends Vue {

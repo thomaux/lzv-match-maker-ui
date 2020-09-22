@@ -1,8 +1,14 @@
-<v-form ref="form" v-model="model.valid">
-    <h2>Mijn Team</h2>
-    <v-text-field v-model="model.name" label="Naam" :rules="model.rules.name"></v-text-field>
-    <location-select v-model="model.gymId" ref="locationSelect" @region-changed="model.onRegionChanged(...arguments)"
-        gym-label="Thuisbasis"></location-select>
-    <v-text-field v-model="model.level" label="Niveau" :rules="model.rules.level"></v-text-field>
-    <v-btn :disabled="!model.valid" @click="submit">Bewaren</v-btn>
-</v-form>
+<v-container>
+    <v-row>
+        <v-col>
+            <v-form ref="form" v-model="model.valid">
+                <h2>Mijn Team</h2>
+                <v-text-field v-model="model.name" label="Naam" :rules="model.rules.name"></v-text-field>
+                <location-select v-model="model.gymId" ref="locationSelect" @region-changed="model.onRegionChanged(...arguments)"
+                gym-label="Thuisbasis" required></location-select>
+                <v-text-field v-model="model.level" label="Niveau" :rules="model.rules.level"></v-text-field>
+                <v-btn :disabled="!model.valid" @click="submit" color="accent">Bewaren</v-btn>
+            </v-form>
+        </v-col>
+    </v-row>
+</v-container>
