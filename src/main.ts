@@ -1,16 +1,13 @@
-import 'reflect-metadata';
-import 'vue-class-component/hooks';
-import Vue from 'vue';
-import { App } from './app/App';
-import { router } from './router/Router';
-import { vuetify } from './vuetify';
+import { createApp } from 'vue';
+import VueAuth0Plugin from 'vue-auth0-plugin';
+import App from './App.vue';
 
-new Vue({
-    el: '#app',
-    template: '<app></app>',
-    components: {
-        App
-    },
-    router,
-    vuetify
+const app = createApp(App);
+app.use(VueAuth0Plugin, {
+    domain: 'lzv-dev.eu.auth0.com',
+    client_id: 'REqP5bFgWsdFy9u30lhSiDD9qZPORmzz',
+    redirect_uri: 'http://localhost:1337',
+    cacheLocation: 'localstorage',
+    useRefreshTokens: true,
 });
+app.mount('#app');

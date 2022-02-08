@@ -1,1 +1,0 @@
-export type ValidationResult = true | string;
